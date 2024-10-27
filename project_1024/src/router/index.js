@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/login/index.vue'
 import Home from '@/views/home/index.vue'
+import Developer from '@/views/developer/index.vue'
 
 Vue.use(VueRouter)
 
@@ -10,6 +11,7 @@ const router = new VueRouter({
     { path: '/login/:id', component: Login },
     { path: '/login', component: Login },
     { path: '/home', component: Home },
+    { path: '/developer', component: Developer },
     {
       path: '/',
       redirect: '/home'

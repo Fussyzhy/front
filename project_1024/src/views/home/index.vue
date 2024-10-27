@@ -1,37 +1,7 @@
 <template>
   <div>
-    <div class="header">
 
-      <div class="icon">Gitgle</div>
-
-      <div class="nav">
-        <ul>
-          <li><a href="">首页</a></li>
-          <li><a href="">语言</a></li>
-          <li><a href="">开发者</a></li>
-          <li><a href="">项目</a></li>
-          <li><a href="">推荐</a></li>
-          <li><a href="">社区</a></li>
-
-        </ul>
-      </div>
-
-      <div class="nav-right">
-        <div class="search">
-          <div class="searchBtn">
-            <van-icon name="search" size="30px"/>
-          </div>
-          <div class="searchTxt">
-            <form action="">
-              <input type="text">
-            </form>
-          </div>
-        </div>
-        <button style="border: #cbd1db solid 2px; background-color: #fff; color:#2b292a;" @click="$router.push('/login/1')">登录</button>
-        <button style="background-color: #3460d8; color:#fff" @click="$router.push('/login/2')">注册</button>
-      </div>
-
-    </div>
+    <IndexHeader></IndexHeader>
 
     <div class="body">
 
@@ -59,7 +29,7 @@
       <div class="main-tag">
         <ul>
 
-          <li>
+          <li @click="$router.push('/developer')">
             <van-icon name="contact-o"  class="li-tag" size="40px"/>
             <div class="li-text">
               <sapn>开发者</sapn>
@@ -158,7 +128,7 @@
           <div class="ranking-title">
             <div>
               <p>顶尖开发者</p>
-              <a href="">所有开发者 > </a>
+              <a @click="$router.push('/developer')">所有开发者 > </a>
             </div>
             <div>
               <span>名次</span>
@@ -206,131 +176,25 @@
 
     </div>
 
-    <div class="footer">
-
-    </div>
+    <Indexfooter></Indexfooter>
   </div>
 </template>
 
 <script>
+import Indexfooter from '@/components/IndexFooter.vue'
+import IndexHeader from '@/components/IndexHeader.vue'
 export default {
-  name: 'homeIndex'
+  name: 'homeIndex',
+  components: {
+    Indexfooter,
+    IndexHeader
+  },
+  async created () {
+  }
 }
 </script>
 
 <style lang="less" scoped>
-  .icon {
-    line-height: 70px;
-    padding: 0px 80px;
-    font-size: 40px;
-  }
-
-  .nav {
-    display: flex;
-    height: 70px;
-  }
-
-  .nav ul {
-    display: flex;
-
-  }
-
-  .nav ul li {
-    width: 100px;
-    padding: 10px;
-    margin: 0px;
-    list-style: none;
-    height: 40px;
-    line-height: 20px;
-    margin: 10px 30px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    transition: 0.5s ease;
-    text-align: center;
-  }
-
-  .nav ul li:hover {
-    box-shadow: 0px 10px 10px rgba(0, 0, 0,0.1);
-    background-color: #f0effb;
-  }
-
-  .nav ul li a {
-    font-size: 20px;
-    color: #2b292a;
-    font-weight: bold;
-  }
-
-  .header {
-    width: 100%;
-    height: 70px;
-    background-color: #fff;
-    display: flex;
-    border-bottom:2px solid #eeeeee ;
-    box-shadow: 0px 10px 10px rgba(0, 0, 0,0.1);
-    transition: 0.5s ease;
-  }
-
-  .header:hover {
-    box-shadow: 0px 20px 20px rgba(0, 0, 0,0.1);
-  }
-
-  .nav-right {
-    padding: 10px 0px 0px 0px;
-    display: flex;
-    justify-content: flex-end;
-    margin-left: auto;
-  }
-
-  .nav-right  button{
-    // line-height: 70px;
-    height: 50px;
-    width: 120px;
-    margin: 0px 20px;
-    border: 0px;
-    border-radius: 20px;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.5s ease;
-  }
-
-  .nav-right  button:hover{
-    box-shadow: 0px 10px 10px rgba(0, 0, 0,0.1);
-  }
-
-  .search {
-    height: 50px;
-    background-color: #f1f1f2;
-    border-radius: 20px;
-    width: 300px;
-    overflow: hidden;
-    display: flex;
-    line-height: 50px;
-  }
-
-  .search .searchBtn {
-    background-color: #f1f1f2;
-    margin: 0px;
-    padding: 8px;
-    height: 200px;
-    transition: 0.5s ease;
-    cursor: pointer;
-  }
-
-  .search .searchBtn:hover {
-    background-color: #e5e5e6;
-    box-shadow: 0px 10px 10px rgba(0, 0, 0,0.1);
-  }
-
-  .search .searchTxt input {
-    height: 45px;
-    margin-left: 5px;
-    background-color: #f1f1f2;
-    width: 220px;
-    border: 0px;
-    font-size: 25px;
-    color:#2b292a;
-  }
 
   .body {
     margin: 20px auto;
@@ -570,6 +434,7 @@ export default {
     font-weight: bolder;
     color: #3460d8;
     transition: 0.5s ease;
+    cursor: pointer;
   }
 
   .ranking-title  div a:hover {
@@ -618,10 +483,4 @@ export default {
     box-shadow: 0px 10px 10px rgba(0, 0, 0,0.1);
   }
 
-  .footer {
-    margin: 100px 0px 0px 0px;
-    width: 100%;
-    height: 400px;
-    background-color: #fff;
-  }
 </style>

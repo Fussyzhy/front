@@ -79,23 +79,27 @@
         <form action="">
           <div class="username">
             <van-icon name="user-circle-o"  size="35px" style="position:absolute; left: 10px; top: 10px;"/>
-            <input type="text" placeholder="请输入用户名或邮箱" autocomplete="username">
+            <input type="text" placeholder="请输入邮箱" autocomplete="username" v-model="regdata.email">
           </div><br>
           <div class="username">
             <van-icon :name="showPass"  size="35px" style="position:absolute; left: 10px; top: 10px; cursor: pointer;" @click="changePass"/>
-            <input :type="type" placeholder="请输入密码" autocomplete="current-password">
+            <input v-model="regdata.firpass" :type="type" placeholder="请输入密码" autocomplete="current-password">
           </div><br>
           <div class="username">
             <van-icon :name="showPass"  size="35px" style="position:absolute; left: 10px; top: 10px; cursor: pointer;" @click="changePass"/>
-            <input :type="type" placeholder="请再次输入密码" autocomplete="current-password">
+            <input v-model="regdata.secpass" :type="type" placeholder="请再次输入密码" autocomplete="current-password">
           </div><br>
+          <div class="username reg-code">
+            <input v-model="regdata.code" :type="type" placeholder="请输入验证码" autocomplete="current-code" class="code-input">
+            <button @click="sendcode">发送验证码</button>
+          </div>
+          <br>
+
           <div style="margin-top: 40px;"></div>
-          <van-button type="primary" color="linear-gradient(315deg,#5098d5 0%,#3460d8 90%)" :round="true" class="login-button">注 册</van-button>
+          <van-button type="primary" color="linear-gradient(315deg,#5098d5 0%,#3460d8 90%)" :round="true" class="login-button" @click="handlereg">注 册</van-button>
         </form>
         <div style="margin-top: 10px;"></div><br>
         <div class="bottom">已有账号？<a @click="changeLogin">登录</a></div>
-        <!-- <div class="bottom">先不登录<a @click="$router.push('/home')">再去逛逛</a></div> -->
-
       </div>
 
     </div>
@@ -104,13 +108,20 @@
 </template>
 
 <script>
+import { getReg, sendEmail } from '@/api/login'
 export default {
   name: 'loginIndex',
   data () {
     return {
       showPass: 'closed-eye',
       type: 'password',
-      mode: ''
+      mode: '',
+      regdata: {
+        email: '',
+        firpass: '',
+        secpass: '',
+        code: ''
+      }
     }
   },
   methods: {
@@ -134,6 +145,26 @@ export default {
           document.querySelector('.window-back').style.transform = 'rotateY(180deg)'
           this.mode = 'login'
         }
+      }
+    },
+    async handlereg () {
+      if (this.regdata.firpass === this.regdata.secpass) {
+        await getReg({
+          email: this.regdata.email,
+          password: this.regdata.firpass,
+          code: this.regdata.code
+        })
+      } else {
+        alert('两次输入的密码不一致')
+        this.regdata.firpass = ''
+        this.regdata.secpass = ''
+      }
+    },
+    async sendcode () {
+      if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(this.regdata.email)) {
+        await sendEmail(this.regdata.email)
+      } else {
+        alert('请输入正确的邮箱格式')
       }
     }
   },
@@ -228,11 +259,38 @@ export default {
     transition: 0.5s ease;
   }
 
+  .reg-code {
+    width: 300px;
+    height: 50px;
+    display: flex;
+    background-color: #ffffff;
+    justify-content: center; /* 水平居中 */
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 0px;
+  }
+
+  .reg-code input {
+    width: 100px;
+    height: 50px;
+    font-size: 15px;
+    border:100px;
+    margin: 0px 65px 0px 0px;
+  }
+
+  .reg-code button {
+    border: 0px;
+    height: 30px;
+    background-color: #ffffff;
+    border-left:1px solid #9c9c9c ;
+    padding: 0px 10px;
+  }
+
   .username:hover{
     box-shadow: 0px 10px 60px rgba(0, 0, 0,0.5);
   }
 
-  .window input {
+  input {
     width: 380px;
     height: 50px;
     font-size: 25px;
