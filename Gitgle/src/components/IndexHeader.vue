@@ -26,8 +26,9 @@
           </form>
         </div>
       </div>
-      <button style="border: #cbd1db solid 2px; background-color: #fff; color:#2b292a;" @click="$router.push('/login/1')">登录</button>
-      <button style="background-color: #3460d8; color:#fff" @click="$router.push('/login/2')">注册</button>
+      <button style="border: #cbd1db solid 2px; background-color: #fff; color:#2b292a;" @click="$router.push('/login/1')" ref="login">登录</button>
+      <button style="background-color: #3460d8; color:#fff" @click="$router.push('/login/2')" ref="reg">注册</button>
+      <button style="border: #cbd1db solid 2px; background-color: #fff; color:#2b292a;" @click="$router.push('/home')" ref="person">个人中心</button>
     </div>
 
   </div>
@@ -35,7 +36,17 @@
 
 <script>
 export default {
-
+  mounted () {
+    if (this.$store.getters.token) {
+      this.$refs.reg.style.display = 'none'
+      this.$refs.login.style.display = 'none'
+      this.$refs.person.style.display = 'block'
+    } else {
+      this.$refs.reg.style.display = 'block'
+      this.$refs.login.style.display = 'block'
+      this.$refs.person.style.display = 'none'
+    }
+  }
 }
 </script>
 
@@ -110,6 +121,7 @@ export default {
 
   .nav-right  button{
     // line-height: 70px;
+    display: block;
     height: 50px;
     width: 120px;
     margin: 0px 20px;

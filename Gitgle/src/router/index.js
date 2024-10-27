@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Login from '@/views/login/index.vue'
 import Home from '@/views/home/index.vue'
 import Developer from '@/views/developer/index.vue'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -19,4 +20,18 @@ const router = new VueRouter({
   ]
 })
 
+const authUrls = []
+
+router.beforeEach((to, from, next) => {
+  if (!authUrls.includes(to.path)) {
+    next()
+    return next()
+  }
+  const token = store.getters.token
+  if (token) {
+    next()
+  } else {
+    next('/login')
+  }
+})
 export default router

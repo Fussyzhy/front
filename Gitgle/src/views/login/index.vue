@@ -114,6 +114,7 @@
 </template>
 
 <script>
+import { Toast } from 'vant'
 import { getlogin, getReg, sendEmail } from '@/api/login'
 export default {
   name: 'loginIndex',
@@ -182,7 +183,12 @@ export default {
         })
         console.log(res)
         if (res.code === 200) {
-          this.$router.replace('/login/1')
+          Toast.success('注册成功')
+          this.$router.replace({ path: '/login/1', query: { t: Date.now() } })
+
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000)
         }
       } else {
         this.handleBlur('email')
@@ -266,7 +272,10 @@ export default {
           password: this.logindata.pass
         })
         console.log(res)
+
         if (res.code === 200) {
+          this.$store.commit('user/setUser', res.data)
+          Toast.success('登录成功')
           this.$router.replace('/home')
         }
       } else {

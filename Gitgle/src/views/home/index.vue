@@ -127,7 +127,7 @@
         <div class="ranking-child" >
           <div class="ranking-title">
             <div>
-              <p>顶尖开发者</p>
+              <p>高分开发者</p>
               <a @click="$router.push('/developer')">所有开发者 > </a>
             </div>
             <div>
@@ -152,7 +152,7 @@
         <div class="ranking-child" >
           <div class="ranking-title">
             <div>
-              <p>顶尖项目 </p>
+              <p>高分项目 </p>
               <a href=""> 所有项目 > </a>
             </div>
             <div>
@@ -188,8 +188,6 @@ export default {
   components: {
     Indexfooter,
     IndexHeader
-  },
-  async created () {
   }
 }
 </script>
