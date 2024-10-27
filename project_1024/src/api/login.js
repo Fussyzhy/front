@@ -18,3 +18,12 @@ export const getReg = (obj) => {
 
   })
 }
+
+export const getlogin = (obj) => {
+  return request.post('/user/login', {
+
+    email: obj.email,
+    password: obj.password
+
+  })
+}
