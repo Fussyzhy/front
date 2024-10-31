@@ -2,6 +2,7 @@
 import axios from 'axios'
 import Vue from 'vue'
 import { Toast } from 'vant'
+import store from '@/store'
 
 Vue.use(Toast)
 
@@ -20,6 +21,10 @@ request.interceptors.request.use(function (config) {
     loadingType: 'spinner',
     duration: 0
   })
+  const token = store.getters.token
+  if (token) {
+    config.headers['Access-Token'] = token
+  }
   return config
 }, function (error) {
   // 对请求错误做些什么

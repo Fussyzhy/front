@@ -33,52 +33,53 @@
             <van-icon name="contact-o"  class="li-tag" size="40px"/>
             <div class="li-text">
               <sapn>开发者</sapn>
-              <p>100</p>
+              <p>{{ datatotal.githubUserTotal }}</p>
             </div>
-            <van-icon name="arrow" size="20px" style="margin: 37px 10px" color="#677081"/>
+            <van-icon name="" size="20px" style="margin: 37px 10px" color="#677081"/>
+            <!-- arrow -->
           </li>
 
           <li>
-            <van-icon name="friends-o"  class="li-tag" size="40px"/>
+            <van-icon name="points"  class="li-tag" size="40px"/>
             <div class="li-text">
-              <sapn>团队</sapn>
-              <p>100</p>
+              <sapn>仓库</sapn>
+              <p>{{ datatotal.githubRepoTotal }}</p>
             </div>
-            <van-icon name="arrow" size="20px" style="margin: 37px 10px" color="#677081"/>
+            <van-icon name="" size="20px" style="margin: 37px 10px" color="#677081"/>
           </li>
 
           <li>
             <van-icon name="location-o"  class="li-tag" size="40px"/>
             <div class="li-text">
               <sapn>国家</sapn>
-              <p>100</p>
+              <p>233</p>
             </div>
-            <van-icon name="arrow" size="20px" style="margin: 37px 10px" color="#677081"/>
+            <van-icon name="" size="20px" style="margin: 37px 10px" color="#677081"/>
           </li>
 
           <li>
-            <van-icon name="points"  class="li-tag" size="40px"/>
+            <van-icon name="cluster-o"  class="li-tag" size="40px"/>
             <div class="li-text">
-              <sapn>数据</sapn>
-              <p>100</p>
+              <sapn>提交</sapn>
+              <p>{{ datatotal.githubCommitTotal }}</p>
             </div>
-            <van-icon name="arrow" size="20px" style="margin: 37px 10px" color="#677081"/>
+            <van-icon name="" size="20px" style="margin: 37px 10px" color="#677081"/>
           </li>
 
           <li>
             <van-icon name="desktop-o"  class="li-tag" size="40px"/>
             <div class="li-text">
-              <sapn>项目</sapn>
-              <p>100</p>
+              <sapn>代码</sapn>
+              <p>{{ datatotal.githubCodeTotal }}</p>
             </div>
-            <van-icon name="arrow" size="20px" style="margin: 37px 10px" color="#677081"/>
+            <van-icon name="" size="20px" style="margin: 37px 10px" color="#677081"/>
           </li>
 
         </ul>
       </div>
 
       <div class="language-title">
-        <p>All Languages</p>
+        <p>All Realms</p>
         <button>更多</button>
       </div>
 
@@ -131,17 +132,19 @@
               <a @click="$router.push('/developer')">所有开发者 > </a>
             </div>
             <div>
-              <span>名次</span>
-              <span>用户</span>
+              <span class="ranking-level">名次</span>
+              <span class="ranking-user">用户</span>
+              <span class="ranking-Talent">TalentRank</span>
             </div>
             <div style="height: 2px; width: 100%; background-color: #eaeaea;"></div>
           </div>
 
           <table>
-            <tr v-for="(item,index) in 10" :key="index">
+            <tr v-for="(item,index) in userlist" :key="index">
               <td class="ranking-num">{{ index+1 }}</td>
-              <td class="ranking-pic"><img src="@/assets/imgs/user.png" alt=""></td>
-              <td class="ranking-name">用户</td>
+              <td class="ranking-pic"><img :src="item.avatar" alt=""></td>
+              <td class="ranking-name"><p class="ellipsis-single-line">{{item.login}}</p></td>
+              <td class="ranking-score">{{ item.talentRank }}</td>
             </tr>
           </table>
 
@@ -155,7 +158,7 @@
               <p>高分项目 </p>
               <a href=""> 所有项目 > </a>
             </div>
-            <div>
+            <div class="ranking-prj">
               <span>名次</span>
               <span>项目</span>
             </div>
@@ -181,6 +184,7 @@
 </template>
 
 <script>
+import { getSearch } from '@/api/search'
 import Indexfooter from '@/components/IndexFooter.vue'
 import IndexHeader from '@/components/IndexHeader.vue'
 export default {
@@ -188,11 +192,35 @@ export default {
   components: {
     Indexfooter,
     IndexHeader
+  },
+  data () {
+    return {
+      userlist: [],
+      datatotal: {
+        githubUserTotal: 0,
+        githubRepoTotal: 0,
+        githubCommitTotal: 0,
+        githubCodeTotal: 0
+      }
+    }
+  },
+  computed: {
+
+  },
+  async created () {
+    const res = await getSearch()
+    console.log(res)
+    this.userlist = res.data.slice(0, 10)
   }
 }
 </script>
 
 <style lang="less" scoped>
+  .ellipsis-single-line {
+      white-space: nowrap;       // 禁止换行
+      overflow: hidden;          // 溢出隐藏
+      text-overflow: ellipsis;   // 溢出部分显示省略号
+  }
 
   .body {
     margin: 20px auto;
@@ -440,24 +468,32 @@ export default {
   }
 
   .ranking-title  div span {
+    // margin: 20px 80px 20px 50px;
+    margin: 20px 0px;
+    font-size: 20px;
+    color: #7a7b8c;
+  }
+
+  .ranking-title .ranking-prj span {
     margin: 20px 80px 20px 50px;
     font-size: 20px;
     color: #7a7b8c;
   }
 
-  .ranking table {
-    // border: #000000 solid 2px;
-    width: 100%;
+  .ranking-title .ranking-level {
+    margin-left:30px ;
   }
 
-  .ranking td {
-    // border: #f00000 solid 2px;
-    // align-items: center;
-    padding: 0px 0px 0px 0px;
+  .ranking-title .ranking-user {
+    margin-left:40px ;
+  }
+
+  .ranking-title .ranking-Talent {
+    margin-left:190px ;
   }
 
   .ranking-num {
-    width: 140px;
+    width: 100px;
     text-align: center;
   }
 
@@ -465,7 +501,11 @@ export default {
     width: 70px;
   }
 
-  .ranking-child td {
+  .ranking-name {
+    width: 190px;
+  }
+
+  .ranking-child tr {
     height: 80px;
 
   }
@@ -473,7 +513,7 @@ export default {
   .ranking-child td img {
     height: 45px;
     border-radius: 50px;
-    margin: 0px 30px 0px 70px;
+    // margin: 0px 30px 0px 0px;
     transition: 0.5s ease;
   }
 

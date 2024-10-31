@@ -10,7 +10,7 @@
       <span>指南</span>
       <ul>
         <li>首页</li>
-        <li>语言</li>
+        <li>领域</li>
         <li @click="$router.push('/developer')">开发者</li>
         <li>推荐</li>
         <li>项目</li>

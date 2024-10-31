@@ -27,3 +27,7 @@ export const getlogin = (obj) => {
 
   })
 }
+
+export const getUserinfomation = () => {
+  return request.post('/user/getUserInfo')
+}

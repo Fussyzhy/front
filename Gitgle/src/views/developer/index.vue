@@ -10,9 +10,12 @@
         <ul>
 
           <li class="category">
-            国籍<van-icon name="arrow-down" />
+            国家/地区<van-icon name="arrow-down" />
             <div class="dropdown-child scroll-box">
-              <a v-for="(item,index) in 10" :key="index">国家</a>
+              <a v-for="(item,index) in nation" :key="index">
+                <img :src="item.flags.svg" alt="" style="width: 20px;">
+                {{ item.name.common }}
+              </a>
             </div>
           </li>
 
@@ -36,15 +39,20 @@
 
       <div class="showcard">
         <ul>
-          <li v-for="(item,index) in 20" :key="index">
-            <img src="@/assets/imgs/user.png" alt="">
-            <p>
-              开发者
-            </p>
+          <li v-for="(item,index) in userlist" :key="index">
+            <img :src="item.avatar" alt="">
             <div>
-              中国
+              <p class="showcard-name">
+                {{item.login}}
+              </p>
+              <div class="showcard-nation">
+                中国
+              </div>
             </div>
-            <spand>TalentRank:1000</spand>
+            <div class="showcard-realms">
+              领域标签展示框
+            </div>
+            <spand>TalentRank:{{ item.talentRank }}</spand>
           </li>
         </ul>
       </div>
@@ -69,11 +77,27 @@
 <script>
 import IndexFooter from '@/components/IndexFooter.vue'
 import IndexHeader from '@/components/IndexHeader.vue'
+import { getSearch } from '@/api/search'
+import axios from 'axios'
 export default {
   name: 'developerIndex',
   components: {
     IndexFooter,
     IndexHeader
+  },
+  data () {
+    return {
+      nation: [],
+      userlist: []
+    }
+  },
+  async created () {
+    const nationres = await axios.get('https://restcountries.com/v3.1/all')
+    this.nation = nationres.data
+    console.log(nationres.data.length)
+
+    const userres = await getSearch()
+    this.userlist = userres.data.slice(0, 20)
   }
 
 }
@@ -148,7 +172,7 @@ export default {
   }
 
   .scroll-box {
-    // width: 160px;        /* 设置宽度 */
+    width: 290px;        /* 设置宽度 */
     height: 200px;      /* 设置高度 */
     overflow-y: auto;   /* 仅在垂直方向显示滚动条 */
     border: 1px solid #ccc; /* 设置边框 */
@@ -216,26 +240,27 @@ export default {
 
   .showcard ul {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    place-items: center;
   }
 
   .showcard li {
-    height: 380px;
-    width: 250px;
+    height: 180px;
+    width: 950px;
     background-color: #fff;
     margin: 20px;
-    display: block;
-    text-align: center;
+    display: flex;
+    padding: 20px;
     border-radius: 20px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
     transition: 0.5s ease;
     cursor: pointer;
     color: #677081;
-
+    align-items: center;
   }
 
   .showcard p {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
     color: #132037;
@@ -243,9 +268,10 @@ export default {
   }
 
   .showcard img {
-    margin: 20px 0px;
-    width: 200px;
+    margin: 20px 30px;
+    width: 100px;
     border-radius: 200px;
+
   }
 
   .showcard span {
@@ -257,6 +283,21 @@ export default {
   }
   .showcard li:hover p{
     color: #5098d5;
+  }
+
+  .showcard-name {
+    width: 120px;
+    white-space: nowrap;
+  }
+
+  .showcard-realms {
+    // background-color: #97ffa5;
+    border-left: #eeeeee 2px solid;
+    margin: 0px 90px;
+    width: 280px;
+    height: 90px;
+    // border-radius: 20px;
+    text-align: center;
   }
 
   .page ul {

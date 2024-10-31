@@ -5,12 +5,12 @@
 
     <div class="nav">
       <ul>
-        <li><a href="">首页</a></li>
-        <li><a href="">语言</a></li>
+        <li @click="$router.push('/home')"><a>首页</a></li>
+        <li><a>领域</a></li>
         <li @click="$router.push('/developer')"><a>开发者</a></li>
-        <li><a href="">项目</a></li>
-        <li><a href="">推荐</a></li>
-        <li><a href="">社区</a></li>
+        <li><a>项目</a></li>
+        <li><a>推荐</a></li>
+        <li><a>社区</a></li>
 
       </ul>
     </div>
@@ -28,7 +28,7 @@
       </div>
       <button style="border: #cbd1db solid 2px; background-color: #fff; color:#2b292a;" @click="$router.push('/login/1')" ref="login">登录</button>
       <button style="background-color: #3460d8; color:#fff" @click="$router.push('/login/2')" ref="reg">注册</button>
-      <button style="border: #cbd1db solid 2px; background-color: #fff; color:#2b292a;" @click="$router.push('/home')" ref="person">个人中心</button>
+      <button style="border: #cbd1db solid 2px; background-color: #fff; color:#2b292a;" @click="$router.push('/perhome')" ref="person">个人中心</button>
     </div>
 
   </div>
