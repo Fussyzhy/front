@@ -8,6 +8,8 @@ import Personal from '@/views/personal/index.vue'
 import Perhome from '@/views/personal/perhome.vue'
 import Like from '@/views/personal/like.vue'
 import Fans from '@/views/personal/fans.vue'
+import Project from '@/views/project/index.vue'
+import Devdetail from '@/views/developer/devdetail.vue'
 
 import store from '@/store'
 
@@ -19,7 +21,9 @@ const router = new VueRouter({
     { path: '/login', component: Login },
     { path: '/home', component: Home },
     { path: '/developer', component: Developer },
+    { path: '/devdetail/:githubId', component: Devdetail },
     { path: '/personal', component: Personal },
+    { path: '/project', component: Project },
     {
       path: '/',
       redirect: '/home'

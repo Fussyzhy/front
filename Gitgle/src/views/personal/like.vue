@@ -2,20 +2,20 @@
   <div>
     <div class="showcard">
       <ul>
-        <li v-for="(item,index) in 20" :key="index">
-          <img src="@/assets/imgs/user.png" alt="">
-          <p>
-            关注的开发者
+        <li v-for="(item,index) in followeingData" :key="index">
+          <img :src="item.avatarUrl" alt="">
+          <p style="margin-top: 20px;">
+            {{ item.login }}
           </p>
-          <div>
+          <!-- <div>
             中国
-          </div>
-          <spand>TalentRank:1000</spand>
+          </div> -->
+          <span style="margin-top: 20px;">ID:{{ item.id }}</span>
         </li>
       </ul>
     </div>
 
-    <div class="page">
+    <!-- <div class="page">
       <ul>
         <li style="background-color: #3460d8; color: white;">1</li>
         <li style="background-color: #edeff2; color: #132037;">2</li>
@@ -23,13 +23,25 @@
         <li style="background-color: #edeff2; color: #132037;">100</li>
         <li style="background-color: #edeff2; color: #132037;">></li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import { getUserinfomation } from '@/api/login'
 export default {
-  name: 'likeIndex'
+  name: 'likeIndex',
+  data () {
+    return {
+      followeingData: []
+    }
+  },
+  async created () {
+    this.selActive = this.$route.fullPath
+    const res = await getUserinfomation()
+    console.log(res)
+    this.followeingData = res.data.githubUserInfo.githubFollowing.githubFollowingList
+  }
 }
 </script>
 

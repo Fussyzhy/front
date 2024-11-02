@@ -39,7 +39,7 @@
 
       <div class="showcard">
         <ul>
-          <li v-for="(item,index) in userlist" :key="index">
+          <li v-for="(item,index) in userlist" :key="index" @click="$router.push(`/devdetail/${item.login}`)">
             <img :src="item.avatar" alt="">
             <div>
               <p class="showcard-name">

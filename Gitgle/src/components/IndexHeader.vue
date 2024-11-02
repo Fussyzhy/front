@@ -1,16 +1,18 @@
 <template>
   <div class="header">
 
-    <div class="icon"><img src="@/assets/imgs/logo.png" alt=""></div>
+    <div class="icon" @click="$router.push('/home')">
+      <img src="@/assets/imgs/logo.png" alt="">
+    </div>
 
     <div class="nav">
       <ul>
         <li @click="$router.push('/home')"><a>首页</a></li>
-        <li><a>领域</a></li>
+        <li><a>热门领域</a></li>
         <li @click="$router.push('/developer')"><a>开发者</a></li>
-        <li><a>项目</a></li>
+        <li @click="$router.push('/project')"><a>仓库</a></li>
+        <!-- <li><a>国家与地区</a></li> -->
         <li><a>推荐</a></li>
-        <li><a>社区</a></li>
 
       </ul>
     </div>
@@ -53,8 +55,9 @@ export default {
 <style lang="less" scoped>
   .icon {
     // line-height: 170px;
-    padding: 5px 30px;
+    padding: 5px 30px 5px 80px;
     font-size: 40px;
+    cursor: pointer;
   }
 
   .icon img {
@@ -73,7 +76,7 @@ export default {
   }
 
   .nav ul li {
-    width: 100px;
+    width: 140px;
     padding: 10px;
     margin: 0px;
     list-style: none;

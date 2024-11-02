@@ -3,17 +3,17 @@
     <IndexHeader></IndexHeader>
     <div class="personal-card">
       <div class="personal-mid">
-        <img src="@/assets/imgs/user.png" alt="">
+        <img :src="personData.githubUserInfo.githubUser.avatar_url" alt="">
         <div class="information">
-          <p class="name">{{ personData.username }}</p>
+          <p class="name">{{ personData.login }}</p>
           <div>
-            <p>关注:<span>尽情期待</span></p>
-            <p>粉丝:<span>尽情期待</span></p>
+            <p>关注:<span>{{ personData.githubUserInfo.githubUser.followers }}</span></p>
+            <p>粉丝:<span>{{ personData.githubUserInfo.githubUser.following }}</span></p>
           </div>
           <div class="information-footer">
             <span>邮箱：{{ personData.email }}</span>
             <span>talentRank：{{ personData.talentRank }}</span>
-            <span>国家：{{ personData.country }}</span>
+            <span>位置：{{ personData.githubUserInfo.githubUser.location }}</span>
           </div>
         </div>
         <button>关注</button>
