@@ -8,8 +8,10 @@ import Personal from '@/views/personal/index.vue'
 import Perhome from '@/views/personal/perhome.vue'
 import Like from '@/views/personal/like.vue'
 import Fans from '@/views/personal/fans.vue'
+import Editinfo from '@/views/personal/edit.vue'
 import Project from '@/views/project/index.vue'
 import Devdetail from '@/views/developer/devdetail.vue'
+import Prodetail from '@/views/project/prodetail.vue'
 
 import store from '@/store'
 
@@ -24,6 +26,7 @@ const router = new VueRouter({
     { path: '/devdetail/:githubId', component: Devdetail },
     { path: '/personal', component: Personal },
     { path: '/project', component: Project },
+    { path: '/prodetail/:repoOwner/:repoName', component: Prodetail },
     {
       path: '/',
       redirect: '/home'
@@ -35,13 +38,14 @@ const router = new VueRouter({
       children: [
         { path: '/perhome', component: Perhome },
         { path: '/like', component: Like },
-        { path: '/fans', component: Fans }
+        { path: '/fans', component: Fans },
+        { path: '/editinfo', component: Editinfo }
       ]
     }
   ]
 })
 
-const authUrls = ['/personal', '/perhome', '/like', '/fans']
+const authUrls = ['/personal', '/perhome', '/like', '/fans', '/devdetail/:githubId']
 
 router.beforeEach((to, from, next) => {
   if (!authUrls.includes(to.path)) {

@@ -208,9 +208,9 @@ export default {
 
   },
   async created () {
-    const res = await getSearch()
+    const res = await getSearch({ page: 1 })
     console.log(res)
-    this.userlist = res.data.slice(0, 10)
+    this.userlist = res.data.searchUsers.slice(0, 10)
   }
 }
 </script>

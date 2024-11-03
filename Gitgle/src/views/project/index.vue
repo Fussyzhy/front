@@ -5,8 +5,9 @@
 
     <div class="body">
       <div class="card-grid">
-        <div v-for="(item,index) in prodata" :key="index" class="card">
+        <div v-for="(item,index) in prodata" :key="index" class="card" @click="$router.push(`/prodetail/${item.ownerLogin}/${item.repoName}/`)">
           <div class="name">
+              <div class="circle"></div>
               {{ item.repoName }}
             <!-- <span>
               <van-icon name="clock-o" />
@@ -42,7 +43,7 @@
               拥有者:
             </div>
             <div style="display: flex; align-items: center;">
-              <img src="@/assets/imgs/user.png" alt="">
+              <img :src="item.ownerAvatarUrl" alt="">
                {{item.ownerLogin}}
             </div>
 
@@ -113,6 +114,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
+  .circle {
+    height: 8px;
+    width: 8px;
+    background-color: black;
+    margin-right: 10px;
+    border-radius: 20px;
+    background-color: rgb(129, 192, 127);
+  }
+
   .body {
     width: 1170px;
     margin: 60px auto;
@@ -145,6 +156,7 @@ export default {
     width: 85%;
     overflow:hidden ;
     white-space: nowrap;
+    align-items: center;
     // background-color: #000;
   }
 

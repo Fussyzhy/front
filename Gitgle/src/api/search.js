@@ -1,10 +1,15 @@
 import request from '@/utils/request'
 
-export const getSearch = (domain, nationId, login) => {
+export const getSearch = (obj) => {
   return request.post('/user/search', {
-    domain: domain,
-    nationId: nationId,
-    login: login
+    domain: obj.domain,
+    nationId: obj.nationId,
+    login: obj.login
+  }, {
+    params: {
+      page: obj.page,
+      size: 20
+    }
   })
 }
 

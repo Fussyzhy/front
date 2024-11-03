@@ -31,3 +31,14 @@ export const getlogin = (obj) => {
 export const getUserinfomation = () => {
   return request.post('/user/getUserInfo')
 }
+
+export const changePassword = (oldPassword, newPassword) => {
+  return request.post('/user/changePassword', {
+    oldPassword: oldPassword,
+    newPassword: newPassword
+  })
+}
+
+export const userexit = () => {
+  return request.post('/user/logout')
+}

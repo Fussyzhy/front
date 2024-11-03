@@ -7,3 +7,11 @@ export const getUserdetail = (githubId) => {
     }
   })
 }
+
+export const changegitlogin = (login, username, email) => {
+  return request.post('/user/change', {
+    login: login,
+    username: username,
+    email: email
+  })
+}

@@ -8,3 +8,12 @@ export const getProject = (page) => {
     }
   })
 }
+
+export const getProdeltail = (repoOwner, repoName) => {
+  return request.get('/data/repo', {
+    params: {
+      repoOwner: repoOwner,
+      repoName: repoName
+    }
+  })
+}

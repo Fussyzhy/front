@@ -13,8 +13,8 @@
             国家/地区<van-icon name="arrow-down" />
             <div class="dropdown-child scroll-box">
               <a v-for="(item,index) in nation" :key="index">
-                <img :src="item.flags.svg" alt="" style="width: 20px;">
-                {{ item.name.common }}
+                <img :src="item.svg" alt="" style="width: 20px;">
+                {{ item.name }}
               </a>
             </div>
           </li>
@@ -46,24 +46,28 @@
                 {{item.login}}
               </p>
               <div class="showcard-nation">
-                中国
+                {{ item.nation }}
               </div>
             </div>
             <div class="showcard-realms">
               领域标签展示框
             </div>
-            <spand>TalentRank:{{ item.talentRank }}</spand>
+            <span>TalentRank:{{ item.talentRank }}</span>
           </li>
         </ul>
       </div>
 
       <div class="page">
         <ul>
-          <li style="background-color: #3460d8; color: white;">1</li>
-          <li style="background-color: #edeff2; color: #132037;">2</li>
-          <li>...</li>
-          <li style="background-color: #edeff2; color: #132037;">100</li>
-          <li style="background-color: #edeff2; color: #132037;">></li>
+          <li class="pagebtn" @click="pagechange(page-1)" style="background-color: #edeff2; color: #132037;" v-if="page > 1">&lt;</li>
+          <li class="pagebtn" @click="pagechange(1)" style="background-color: #edeff2; color: #132037;" v-if="page > 2">1</li>
+          <li v-if="page > 3">...</li>
+          <li class="pagebtn" @click="pagechange(page-1)" style="background-color: #edeff2; color: #132037;" v-if="page > 1">{{ page-1 }}</li>
+          <li class="pagebtn" style="background-color: #3460d8; color: white;">{{ page }}</li>
+          <li class="pagebtn" @click="pagechange(page+1)" style="background-color: #edeff2; color: #132037;" v-if="page < totalPage">{{ page+1 }}</li>
+          <li v-if="page < totalPage-2">...</li>
+          <li class="pagebtn" @click="pagechange(totalPage)" style="background-color: #edeff2; color: #132037;" v-if="page < totalPage-1">{{totalPage}}</li>
+          <li class="pagebtn" @click="pagechange(page+1)" style="background-color: #edeff2; color: #132037;" v-if="page < totalPage">></li>
         </ul>
       </div>
 
@@ -88,16 +92,44 @@ export default {
   data () {
     return {
       nation: [],
-      userlist: []
+      userlist: [],
+      page: 1,
+      totalPage: 0
     }
   },
   async created () {
     const nationres = await axios.get('https://restcountries.com/v3.1/all')
-    this.nation = nationres.data
-    console.log(nationres.data.length)
 
-    const userres = await getSearch()
-    this.userlist = userres.data.slice(0, 20)
+    const userres = await getSearch({ page: 1 })
+    this.userlist = userres.data.searchUsers
+    this.page = userres.data.page
+    this.totalPage = userres.data.totalPage
+
+    for (const item of nationres.data) {
+      if (item.translations && item.translations.zho && item.translations.zho.common) {
+        this.nation.push({
+          svg: item.flags.svg,
+          name: item.translations.zho.common
+        })
+      } else {
+        this.nation.push({
+          svg: item.flags.svg,
+          name: item.name.nativeName.zho.common
+        })
+      }
+    }
+
+    // this.nation = this.nation.filter(item => !(item.translations && item.translations.zho && item.translations.zho.common))
+    console.log(userres)
+  },
+  methods: {
+    async pagechange (page) {
+      const res = await getSearch({ page: page })
+      console.log(res)
+      this.page = res.data.page
+      this.userlist = res.data.searchUsers
+      this.totalPage = res.data.totalPage
+    }
   }
 
 }
@@ -305,6 +337,11 @@ export default {
     justify-content: center;        /* 水平居中 */
     align-items: center;
     margin: 70px;
+
+  }
+
+  ul .pagebtn:hover {
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
   }
 
   .page ul li {
@@ -317,5 +354,6 @@ export default {
     border-radius: 10px;
     font-weight: bold;
     font-size: 20px;
+    transition: 0.5s ease;
   }
 </style>

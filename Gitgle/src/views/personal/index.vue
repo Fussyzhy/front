@@ -16,7 +16,6 @@
             <span>位置：{{ personData.githubUserInfo.githubUser.location }}</span>
           </div>
         </div>
-        <button>关注</button>
       </div>
 
     </div>
@@ -27,6 +26,7 @@
           <router-link  to="/perhome"><li @click="changerouter('/perhome')"  :class="{ active: selActive === '/perhome' }">个人主页</li></router-link>
           <router-link  to="/like"><li @click="changerouter('/like')"  :class="{ active: selActive === '/like' }">我的关注</li></router-link>
           <router-link  to="/fans"><li @click="changerouter('/fans')"  :class="{ active: selActive === '/fans' }">我的粉丝</li></router-link>
+          <router-link  to="/editinfo"><li @click="changerouter('/editinfo')"  :class="{ active: selActive === '/editinfo' }">设置</li></router-link>
 
         </ul>
       </div>
