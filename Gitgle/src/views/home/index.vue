@@ -48,14 +48,14 @@
             <van-icon name="" size="20px" style="margin: 37px 10px" color="#677081"/>
           </li>
 
-          <li>
+          <!-- <li>
             <van-icon name="location-o"  class="li-tag" size="40px"/>
             <div class="li-text">
               <sapn>国家</sapn>
               <p>233</p>
             </div>
             <van-icon name="" size="20px" style="margin: 37px 10px" color="#677081"/>
-          </li>
+          </li> -->
 
           <li>
             <van-icon name="cluster-o"  class="li-tag" size="40px"/>
@@ -78,50 +78,112 @@
         </ul>
       </div>
 
+      <div class="tuijian">
+        <span>为你推荐</span>
+      </div>
+
       <div class="language-title">
-        <p>All Realms</p>
-        <button>更多</button>
+        <p>开发者</p>
+        <button @click="$router.push('/developer')">更多</button>
       </div>
 
       <div class="language-body">
+        <div class="showcard">
+          <ul>
+            <li v-for="(item,index) in raDeveloper" :key="index">
+              <img :src="item.avatar" alt="">
+              <p style="margin-top: 20px;">
+              {{ item.login }}
+              </p>
+              <!-- <div>
+                中国
+              </div> -->
+              <span style="margin-top: 20px;">ID:{{ item.id }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="domain-title">
+        <p>领域</p>
+        <button @click="$router.push('/domain')">更多</button>
+      </div>
+
+      <div class="domain-body">
         <ul>
 
-          <li>
+          <li  v-for="(item,index) in raDomain" :key="index">
             <div>
-              <img src="@/assets/imgs/java_logo.png" alt="">
-            </div>
-            <p>Java</p>
-          </li>
+              <img src="@/assets/imgs/githubuser.png" alt="">
+              <p>{{ item.developerTotal }}</p>
+              <div>{{ item.domain }}</div>
 
-          <li>
-            <div>
-              <img src="@/assets/imgs/java_logo.png" alt="">
             </div>
-            <p>Java</p>
-          </li>
-
-          <li>
-            <div>
-              <img src="@/assets/imgs/java_logo.png" alt="">
-            </div>
-            <p>Java</p>
-          </li>
-
-          <li>
-            <div>
-              <img src="@/assets/imgs/java_logo.png" alt="">
-            </div>
-            <p>Java</p>
-          </li>
-
-          <li>
-            <div>
-              <img src="@/assets/imgs/java_logo.png" alt="">
-            </div>
-            <p>Java</p>
           </li>
 
         </ul>
+      </div>
+
+      <div class="language-title">
+        <p>仓库</p>
+        <button @click="$router.push('/project')">更多</button>
+      </div>
+
+      <div class="repo-body">
+        <div class="card-grid">
+          <div v-for="(item,index) in raRepo" :key="index" class="card" @click="$router.push(`/prodetail/${item.ownerLogin}/${item.repoName}/`)">
+            <div class="name">
+                <div class="circle"></div>
+                {{ item.repoName }}
+              <!-- <span>
+                <van-icon name="clock-o" />
+                ID: 2024-9-27
+              </span> -->
+            </div>
+
+            <ul>
+              <li>
+                <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star mr-2">
+                    <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694Z"></path>
+                </svg>
+                {{item.starsCount}} stars
+              </li>
+              <li>
+                <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo-forked mr-1">
+                    <path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"></path>
+                </svg>
+                {{item.forksCount}} forks
+              </li>
+              <li>
+                <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-eye mr-2">
+                    <path d="M8 2c1.981 0 3.671.992 4.933 2.078 1.27 1.091 2.187 2.345 2.637 3.023a1.62 1.62 0 0 1 0 1.798c-.45.678-1.367 1.932-2.637 3.023C11.67 13.008 9.981 14 8 14c-1.981 0-3.671-.992-4.933-2.078C1.797 10.83.88 9.576.43 8.898a1.62 1.62 0 0 1 0-1.798c.45-.677 1.367-1.931 2.637-3.022C4.33 2.992 6.019 2 8 2ZM1.679 7.932a.12.12 0 0 0 0 .136c.411.622 1.241 1.75 2.366 2.717C5.176 11.758 6.527 12.5 8 12.5c1.473 0 2.825-.742 3.955-1.715 1.124-.967 1.954-2.096 2.366-2.717a.12.12 0 0 0 0-.136c-.412-.621-1.242-1.75-2.366-2.717C10.824 4.242 9.473 3.5 8 3.5c-1.473 0-2.825.742-3.955 1.715-1.124.967-1.954 2.096-2.366 2.717ZM8 10a2 2 0 1 1-.001-3.999A2 2 0 0 1 8 10Z"></path>
+                </svg>
+                {{item.watchersCount}} watching
+              </li>
+            </ul>
+
+            <hr>
+
+            <div class="foot">
+              <div style="font-size: 20px;">
+                拥有者:
+              </div>
+              <div style="display: flex; align-items: center;">
+                <img :src="item.ownerAvatarUrl" alt="">
+                {{item.ownerLogin}}
+              </div>
+
+              <!-- <span>
+                <van-icon name="clock-o" />
+                更新于 2024-9-27
+              </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="tuijian" style="margin-top: 100px;">
       </div>
 
       <div class="ranking">
@@ -142,7 +204,7 @@
           <table>
             <tr v-for="(item,index) in userlist" :key="index">
               <td class="ranking-num">{{ index+1 }}</td>
-              <td class="ranking-pic"><img :src="item.avatar" alt=""></td>
+              <td class="ranking-pic"><img :src="item.avatar || defaultimg" alt=""></td>
               <td class="ranking-name"><p class="ellipsis-single-line">{{item.login}}</p></td>
               <td class="ranking-score">{{ item.talentRank }}</td>
             </tr>
@@ -153,23 +215,44 @@
         <div class="ranking-mid"></div>
 
         <div class="ranking-child" >
-          <div class="ranking-title">
+          <!-- <div class="ranking-title">
             <div>
-              <p>高分项目 </p>
-              <a href=""> 所有项目 > </a>
+              <p>高分仓库 </p>
+              <a href=""> 所有仓库 > </a>
             </div>
             <div class="ranking-prj">
               <span>名次</span>
-              <span>项目</span>
+              <span>仓库名称</span>
             </div>
             <div style="height: 2px; width: 100%; background-color: #eaeaea;"></div>
           </div>
 
           <table>
-            <tr v-for="(item,index) in 10" :key="index">
+            <tr v-for="(item,index) in repohost" :key="index">
               <td class="ranking-num">{{ index+1 }}</td>
-              <td class="ranking-pic"><img src="@/assets/imgs/user.png" alt=""></td>
-              <td class="ranking-name">项目</td>
+              <td class="ranking-pic"><img :src="item.ownerAvatarUrl || defaultimg" alt=""></td>
+              <td class="ranking-name">{{ item.repoName }}</td>
+            </tr>
+          </table> -->
+          <div class="ranking-title">
+            <div>
+              <p>高分仓库</p>
+              <a @click="$router.push('/project')" style="padding-left: 30px;">所有仓库 > </a>
+            </div>
+            <div>
+              <span class="ranking-level">名次</span>
+              <span class="ranking-user">仓库</span>
+              <span class="ranking-Talent">starsCount</span>
+            </div>
+            <div style="height: 2px; width: 100%; background-color: #eaeaea;"></div>
+          </div>
+
+          <table>
+            <tr v-for="(item,index) in repohost" :key="index">
+              <td class="ranking-num">{{ index+1 }}</td>
+              <td class="ranking-pic"><img :src="item.ownerAvatarUrl || defaultimg" alt=""></td>
+              <td class="ranking-name"><p>{{ item.repoName }}</p></td>
+              <td class="ranking-score">{{ item.starsCount }}</td>
             </tr>
           </table>
 
@@ -184,7 +267,12 @@
 </template>
 
 <script>
-import { getSearch } from '@/api/search'
+import { getSearch, gethomedata } from '@/api/search'
+// import { gethomedata } from '@/api/search'
+import { getDomain } from '@/api/domain'
+import { getProject } from '@/api/project'
+
+import defaultimg from '@/assets/imgs/githubuser.png'
 import Indexfooter from '@/components/IndexFooter.vue'
 import IndexHeader from '@/components/IndexHeader.vue'
 export default {
@@ -201,16 +289,72 @@ export default {
         githubRepoTotal: 0,
         githubCommitTotal: 0,
         githubCodeTotal: 0
-      }
+      },
+      raDomain: [],
+      raRepo: [],
+      raDeveloper: [],
+      repohost: [],
+      defaultimg
     }
   },
   computed: {
 
   },
+  methods: {
+    async randomDomain () {
+      this.raDomain = []
+      const res = await getDomain()
+      while (this.raDomain.length < 5) {
+        const randomIndex = Math.floor(Math.random() * res.data.hotDomainList.length)
+        const randomElement = res.data.hotDomainList[randomIndex]
+        if (!this.raDomain.includes(randomElement)) {
+          this.raDomain.push(randomElement)
+        }
+      }
+      // console.log(this.raDomain)
+    },
+    async randomDeveloper () {
+      this.raDeveloper = []
+      const randomNumbers = []
+      while (randomNumbers.length < 5) {
+        const randomNumber = Math.floor(Math.random() * 10) + 1
+        if (!randomNumbers.includes(randomNumber)) {
+          randomNumbers.push(randomNumber)
+          const res = await getSearch({ page: randomNumber, size: 1 })
+          this.raDeveloper.push(res.data.searchUsers[0])
+        }
+      }
+      // console.log(this.raDeveloper)
+    },
+    async randomRepo () {
+      this.raRepo = []
+      const randomNumbers = []
+      while (randomNumbers.length < 6) {
+        const randomNumber = Math.floor(Math.random() * 100) + 1
+        if (!randomNumbers.includes(randomNumber)) {
+          randomNumbers.push(randomNumber)
+          const res = await getProject(randomNumber, 1)
+          this.raRepo.push(res.data.githubReposList[0])
+        }
+      }
+      // console.log(this.raRepo)
+    }
+
+  },
   async created () {
-    const res = await getSearch({ page: 1 })
-    console.log(res)
-    this.userlist = res.data.searchUsers.slice(0, 10)
+    const res = await getSearch({ page: 1, size: 10 })
+    // console.log(res)
+    this.userlist = res.data.searchUsers
+
+    const datares = await gethomedata()
+    this.datatotal = datares.data
+    this.randomDomain()
+    this.randomRepo()
+    this.randomDeveloper()
+
+    const repores = await getProject(1, 10)
+    console.log(repores)
+    this.repohost = repores.data.githubReposList
   }
 }
 </script>
@@ -311,7 +455,7 @@ export default {
   }
 
   .main-tag ul li {
-    width: 200px;
+    width: 260px;
     height: 100px;
     margin: 10px auto  0;
     background-color: #f2f4f7;
@@ -345,7 +489,7 @@ export default {
 
   .main-tag .li-text p {
     margin-top: 3px;
-    font-size: 30px;
+    font-size:18px;
     font-weight: bold;
     color: #132037;
   }
@@ -356,9 +500,10 @@ export default {
   }
 
   .language-title p {
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
     color: #132037;
+    line-height: 40px;
   }
 
   .language-title button {
@@ -420,6 +565,90 @@ export default {
     width: 100px;
     height: 180px;
   }
+
+  .domain-title {
+    display: flex;
+    padding: 10px;
+  }
+
+  .domain-title p {
+    font-size: 25px;
+    font-weight: bold;
+    color: #132037;
+    line-height: 40px;
+  }
+  .domain-body  img{
+    margin-top: 20px;
+    width: 80px;
+    // height: 180px;
+  }
+
+  .domain-title button {
+    margin-left:auto;
+    margin-bottom: 20px;
+    height: 40px;
+    width: 100px;
+    font-size: 20px;
+    border: #cbd1db solid 3px;
+    border-radius: 20px;
+    background-color: #fafafa;
+    color: #132037;
+    transition: 0.5s ease;
+    font-weight: bold;
+  }
+
+  .domain-title button:hover{
+    color: #3460d8;
+    border: #3460d8 solid 3px;
+  }
+
+  .domain-body ul {
+    display: flex;
+  }
+
+  .domain-body ul li {
+    width: 170px;
+    height: 250px;
+    margin: 10px auto  0;
+    transition: 0.5s ease;
+  }
+
+  .domain-body ul li div {
+    width: 150px;
+    height: 200px;
+    background-color: #fff;
+    margin: auto;
+    text-align: center;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: 0.5s ease;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0,0.1);
+  }
+
+  .domain-body ul li div:hover {
+    box-shadow: 0px 10px 10px rgba(0, 0, 0,0.2);
+  }
+
+  .domain-body ul li div div {
+    font-size: 22px;
+    margin: 20px 0px;
+    color: #677081;
+  }
+
+  .domain-body ul li div:hover  div {
+    color: #3460d8;
+  }
+
+  .domain-body ul li div p {
+    font-size: 25px;
+    margin: 10px 0px 0px 0px;
+  }
+
+  // .domain-body ul li div img{
+  //   width: 100px;
+  //   height: 180px;
+  // }
 
   .ranking {
     margin: 100px 0px;
@@ -519,6 +748,158 @@ export default {
 
   .ranking-child td img:hover {
     box-shadow: 0px 10px 10px rgba(0, 0, 0,0.1);
+  }
+
+  .tuijian {
+    width: auto;
+    background-color: #7a7a7a;
+    height: 1px;
+    // text-align: center;
+    position: relative;
+    margin: 30px 0px;
+  }
+  .tuijian span {
+    background-color: #fafafa;
+    // margin: auto;
+    position: absolute;
+    width: 180px;
+    top: -23px;
+    left: 42%;
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .circle {
+    height: 8px;
+    width: 8px;
+    background-color: black;
+    margin-right: 10px;
+    border-radius: 20px;
+    background-color: rgb(129, 192, 127);
+  }
+
+  .card-grid {
+    padding-left: 60px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-grid .card {
+    height: 200px;
+    width: 500px;
+    background-color: #ffffff;
+    margin: 20px 0px;
+    border-radius: 30px;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: 0.5s ease;
+  }
+
+  .card-grid .card:hover {
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .card .name {
+    margin: 40px 40px 20px 40px;
+    font-size: 20px;
+    display: flex;
+    width: 85%;
+    overflow:hidden ;
+    white-space: nowrap;
+    align-items: center;
+    // background-color: #000;
+  }
+
+  .card .name span {
+    // margin: 20px 20px;
+    padding-top:18px ;
+    font-size: 15px;
+    float: right;
+    color: #9198a1;
+  }
+
+  .card ul {
+    display: flex;
+    justify-content: space-between;
+    // margin: 20px 0px;
+    color: #9198a1;
+    padding: 0px 20px;
+  }
+
+  .card ul li {
+    margin: 0px 0px;
+  }
+
+  .card .desc {
+    padding: 40px;
+    height: 300px;
+    line-height: 30px;
+    // background-color: #ff0000;
+  }
+
+  .card .foot {
+    margin: 30px 20px 0px;
+    display: flex;
+    align-items: center;
+  }
+
+  .card .foot img {
+    height: 30px;
+    border-radius: 50px;
+    margin: 0px 10px 0px 20px;
+  }
+
+  .card .foot span {
+    margin: 0px 0px 0px 130px;
+    font-size: 15px;
+    float: right;
+    color: #9198a1;
+  }
+
+  .showcard ul {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin-bottom: 60px;
+  }
+
+  .showcard li {
+    height: 380px;
+    width: 250px;
+    background-color: #fff;
+    margin: 0px;
+    display: block;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.5s ease;
+    cursor: pointer;
+    color: #677081;
+
+  }
+
+  .showcard p {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #132037;
+    transition: 0.5s ease;
+  }
+
+  .showcard img {
+    margin: 20px 0px;
+    width: 100px;
+    border-radius: 200px;
+  }
+
+  .showcard span {
+    // margin-top: 20px;
+    font-size: 15px;
+  }
+  .showcard li:hover{
+    transform: rotateX(-15deg) rotateY(15deg);
+  }
+  .showcard li:hover p{
+    color: #5098d5;
   }
 
 </style>

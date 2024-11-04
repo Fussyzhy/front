@@ -8,11 +8,10 @@
     <div class="nav">
       <ul>
         <li @click="$router.push('/home')"><a>首页</a></li>
-        <li><a>热门领域</a></li>
+        <li @click="$router.push('/domain')"><a>热门领域</a></li>
         <li @click="$router.push('/developer')"><a>开发者</a></li>
         <li @click="$router.push('/project')"><a>仓库</a></li>
-        <!-- <li><a>国家与地区</a></li> -->
-        <li><a>推荐</a></li>
+        <!-- <li><a>推荐</a></li> -->
 
       </ul>
     </div>
@@ -54,14 +53,14 @@ export default {
 
 <style lang="less" scoped>
   .icon {
-    // line-height: 170px;
-    padding: 5px 30px 5px 80px;
+    // line-height: 70px;
+    padding: 0px 30px 10px 40px;
     font-size: 40px;
     cursor: pointer;
   }
 
   .icon img {
-    width: 170px;
+    width: 120px;
 
   }
 
@@ -76,9 +75,9 @@ export default {
   }
 
   .nav ul li {
-    width: 140px;
+    // width: 140px;
+    width: auto;
     padding: 10px;
-    margin: 0px;
     list-style: none;
     height: 40px;
     line-height: 20px;
@@ -97,6 +96,7 @@ export default {
 
   .nav ul li a {
     font-size: 20px;
+    // font-size: 2vmin;
     color: #2b292a;
     font-weight: bold;
   }
@@ -109,6 +109,7 @@ export default {
     border-bottom:2px solid #eeeeee ;
     box-shadow: 0px 10px 10px rgba(0, 0, 0,0.1);
     transition: 0.5s ease;
+    align-items: center;
   }
 
   .header:hover {
@@ -116,7 +117,7 @@ export default {
   }
 
   .nav-right {
-    padding: 10px 0px 0px 0px;
+    padding: 0px 20px 0px 0px;
     display: flex;
     justify-content: flex-end;
     margin-left: auto;
@@ -127,7 +128,7 @@ export default {
     display: block;
     height: 50px;
     width: 120px;
-    margin: 0px 20px;
+    margin: 0px 7px;
     border: 0px;
     border-radius: 20px;
     font-size: 20px;
@@ -144,7 +145,7 @@ export default {
     height: 50px;
     background-color: #f1f1f2;
     border-radius: 20px;
-    width: 300px;
+    width: 200px;
     overflow: hidden;
     display: flex;
     line-height: 50px;

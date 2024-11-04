@@ -96,7 +96,7 @@ export default {
   },
   methods: {
     async pagechange (page) {
-      const res = await getProject(page)
+      const res = await getProject(page, 20)
       console.log(res)
       this.page = res.data.page
       this.prodata = res.data.githubReposList
@@ -104,7 +104,7 @@ export default {
     }
   },
   async created () {
-    const res = await getProject(1)
+    const res = await getProject(1, 20)
     console.log(res)
     this.page = res.data.page
     this.prodata = res.data.githubReposList

@@ -1,19 +1,19 @@
 <template>
   <div>
     <div class="showcard">
-        <ul>
-          <li v-for="(item,index) in fansData" :key="index">
-            <img :src="item.avatarUrl" alt="">
-            <p style="margin-top: 20px;">
-            {{ item.login }}
-            </p>
-            <!-- <div>
-              中国
-            </div> -->
-            <span style="margin-top: 20px;">ID:{{ item.id }}</span>
-          </li>
-        </ul>
-      </div>
+      <ul>
+        <li v-for="(item,index) in fansData" :key="index">
+          <img :src="item.avatar_url" alt="">
+          <p style="margin-top: 20px;">
+          {{ item.login }}
+          </p>
+          <!-- <div>
+            中国
+          </div> -->
+          <span style="margin-top: 20px;">ID:{{ item.id }}</span>
+        </li>
+      </ul>
+    </div>
 
       <!-- <div class="page">
         <ul>

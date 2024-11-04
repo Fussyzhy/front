@@ -10,9 +10,9 @@
         <ul>
 
           <li class="category">
-            国家/地区<van-icon name="arrow-down" />
+            {{ search.nation || '国家/地区' }}<van-icon name="arrow-down" />
             <div class="dropdown-child scroll-box">
-              <a v-for="(item,index) in nation" :key="index">
+              <a v-for="(item,index) in nation" :key="index" @click="search.nation = item.name">
                 <img :src="item.svg" alt="" style="width: 20px;">
                 {{ item.name }}
               </a>
@@ -20,9 +20,9 @@
           </li>
 
           <li class="category">
-            领域<van-icon name="arrow-down" />
+            {{ search.domai || '热门领域' }}<van-icon name="arrow-down" />
             <div class="dropdown-child scroll-box">
-              <a v-for="(item,index) in 10" :key="index">领域</a>
+              <a v-for="(item,index) in hotDomainList" :key="index" @click="search.domain = item.domain">{{ item.domain }}</a>
             </div>
           </li>
 
@@ -40,17 +40,20 @@
       <div class="showcard">
         <ul>
           <li v-for="(item,index) in userlist" :key="index" @click="$router.push(`/devdetail/${item.login}`)">
-            <img :src="item.avatar" alt="">
+            <img :src="item.avatar || defaultimg" alt="">
             <div>
               <p class="showcard-name">
                 {{item.login}}
               </p>
               <div class="showcard-nation">
-                {{ item.nation }}
+                {{ item.nation || 'N/A' }}
               </div>
             </div>
             <div class="showcard-realms">
-              领域标签展示框
+              <div class="domain-tag">
+                <div v-for="(item,index) in item.domains.slice(0,6)" :key="index">{{ item }}</div>
+                <p v-if="item.domains.length === 0">N/A</p>
+              </div>
             </div>
             <span>TalentRank:{{ item.talentRank }}</span>
           </li>
@@ -79,6 +82,8 @@
 </template>
 
 <script>
+import { getDomain } from '@/api/domain'
+import defaultimg from '@/assets/imgs/githubuser.png'
 import IndexFooter from '@/components/IndexFooter.vue'
 import IndexHeader from '@/components/IndexHeader.vue'
 import { getSearch } from '@/api/search'
@@ -92,15 +97,22 @@ export default {
   data () {
     return {
       nation: [],
+      hotDomainList: [],
       userlist: [],
       page: 1,
-      totalPage: 0
+      totalPage: 0,
+      search: {
+        domain: '',
+        nation: '',
+        login: ''
+      },
+      defaultimg
     }
   },
   async created () {
     const nationres = await axios.get('https://restcountries.com/v3.1/all')
 
-    const userres = await getSearch({ page: 1 })
+    const userres = await getSearch({ page: 1, size: 20 })
     this.userlist = userres.data.searchUsers
     this.page = userres.data.page
     this.totalPage = userres.data.totalPage
@@ -119,12 +131,14 @@ export default {
       }
     }
 
+    const dmres = await getDomain()
+    this.hotDomainList = dmres.data.hotDomainList
     // this.nation = this.nation.filter(item => !(item.translations && item.translations.zho && item.translations.zho.common))
-    console.log(userres)
+    console.log(dmres)
   },
   methods: {
     async pagechange (page) {
-      const res = await getSearch({ page: page })
+      const res = await getSearch({ page: page, size: 20 })
       console.log(res)
       this.page = res.data.page
       this.userlist = res.data.searchUsers
@@ -274,6 +288,7 @@ export default {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     place-items: center;
+    // align-items: center;
   }
 
   .showcard li {
@@ -289,6 +304,7 @@ export default {
     cursor: pointer;
     color: #677081;
     align-items: center;
+    overflow: hidden;
   }
 
   .showcard p {
@@ -324,12 +340,12 @@ export default {
 
   .showcard-realms {
     // background-color: #97ffa5;
-    border-left: #eeeeee 2px solid;
+    // border-left: #eeeeee 2px solid;
     margin: 0px 90px;
     width: 280px;
     height: 90px;
     // border-radius: 20px;
-    text-align: center;
+    margin-top: 20px;
   }
 
   .page ul {
@@ -355,5 +371,44 @@ export default {
     font-weight: bold;
     font-size: 20px;
     transition: 0.5s ease;
+  }
+
+  .domain-tag {
+    border-left: #eeeeee 2px solid;
+    padding-left: 20px;
+    height: 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-left: 30px;
+    width: 250px;
+    // background-color: #000;
+
+  }
+
+  .domain-tag div {
+    border: #dddee1 2px solid;
+    margin: 8px;
+    border-radius: 20px;
+    width: 80px;
+    // height: 30px;
+    // background-color: #d6d9de;
+    color: #202124;
+    text-align: center;
+    font-size: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .domain-tag p {
+    font-weight: 100;
+    font-size: 30px;
+    line-height: 80px;
+    margin-left: 100px;
+    color: #677081;
+  }
+
+  .domain-tag p:hover {
+    color: #677081;
   }
 </style>

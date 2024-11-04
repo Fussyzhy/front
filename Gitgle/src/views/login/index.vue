@@ -28,7 +28,7 @@
       </div>
       <div class="right-content">
         <p style="font-size: 60px; margin: 120px 0px 80px; color: #5a6373;">欢迎回来</p>
-        <form action="">
+        <form action="" @submit.prevent="handleLogin">
           <div class="username">
             <van-icon name="user-circle-o"  size="35px" style="position:absolute; left: 10px; top: 10px;"/>
             <input v-model="logindata.email" type="text" placeholder="请输入邮箱" autocomplete="username" @blur="handleBlur('loginemail')">
@@ -40,7 +40,8 @@
             <div class="errologin">密码格式输入有误</div>
           </div><br>
           <div style="margin-top: 90px;"></div>
-          <van-button type="primary" color="linear-gradient(315deg,#5098d5 0%,#3460d8 90%)" :round="true" class="login-button" @click="handleLogin">登 录</van-button>
+          <input type="submit" class="login-button" value="登录">
+          <!-- <van-button type="primary" color="linear-gradient(315deg,#5098d5 0%,#3460d8 90%)" :round="true" class="login-button" @click="handleLogin">登 录</van-button> -->
         </form>
         <div style="margin-top: 10px;"></div><br>
         <div class="bottom">没有账号？<a @click="changeLogin">注册</a></div>
@@ -78,7 +79,7 @@
       </div>
       <div class="right-content">
         <p style="font-size: 60px; margin: 120px 0px 30px; color: #5a6373;">欢迎加入</p>
-        <form action="">
+        <form action="" @submit.prevent="handlereg">
           <div class="username">
             <van-icon name="user-circle-o"  size="35px" style="position:absolute; left: 10px; top: 10px;"/>
             <input type="text" placeholder="请输入邮箱" autocomplete="username" v-model="regdata.email" @blur="handleBlur('email')">
@@ -96,13 +97,14 @@
           </div><br>
           <div class="username reg-code">
             <input v-model="regdata.code" :type="text" placeholder="请输入验证码" autocomplete="current-code" class="code-input" maxlength="6" @blur="handleBlur('code')">
-            <button @click="sendcode" ref="codeBtn">发送验证码</button>
+            <button @click="sendcode" ref="codeBtn" type="button">发送验证码</button>
           </div>
           <div class="erro">验证码格式不正确</div>
           <br>
 
           <div style="margin-top: 10px;"></div>
-          <van-button type="primary" color="linear-gradient(315deg,#5098d5 0%,#3460d8 90%)" :round="true" class="reg-button" @click="handlereg">注 册</van-button>
+          <input type="submit" class="login-button" value="注册">
+          <!-- <van-button type="primary" color="linear-gradient(315deg,#5098d5 0%,#3460d8 90%)" :round="true" class="reg-button" @click="handlereg">注 册</van-button> -->
         </form>
         <div style="margin-top: 10px;"></div><br>
         <div class="bottom">已有账号？<a @click="changeLogin">登录</a></div>
@@ -461,6 +463,9 @@ export default {
     font-size: 25px;
     height: 50px;
     transition: 0.5s ease;
+    background-color: #3460d8;
+    color: #ffffff;
+    border-radius: 20px;
   }
 
   .login-button:hover {

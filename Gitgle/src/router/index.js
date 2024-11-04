@@ -12,6 +12,7 @@ import Editinfo from '@/views/personal/edit.vue'
 import Project from '@/views/project/index.vue'
 import Devdetail from '@/views/developer/devdetail.vue'
 import Prodetail from '@/views/project/prodetail.vue'
+import Domain from '@/views/domain/index.vue'
 
 import store from '@/store'
 
@@ -27,6 +28,7 @@ const router = new VueRouter({
     { path: '/personal', component: Personal },
     { path: '/project', component: Project },
     { path: '/prodetail/:repoOwner/:repoName', component: Prodetail },
+    { path: '/domain', component: Domain },
     {
       path: '/',
       redirect: '/home'

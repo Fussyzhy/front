@@ -7,8 +7,8 @@
         <div class="information">
           <p class="name">{{ personData.login }}</p>
           <div>
-            <p>关注:<span>{{ personData.githubUserInfo.githubUser.followers }}</span></p>
-            <p>粉丝:<span>{{ personData.githubUserInfo.githubUser.following }}</span></p>
+            <p>关注:<span>{{ personData.githubUserInfo.githubUser.following }}</span></p>
+            <p>粉丝:<span>{{ personData.githubUserInfo.githubUser.followers }}</span></p>
           </div>
           <div class="information-footer">
             <span>邮箱：{{ personData.email }}</span>

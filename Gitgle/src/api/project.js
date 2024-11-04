@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export const getProject = (page) => {
+export const getProject = (page, size) => {
   return request.get('/data/repo/list', {
     params: {
       page: page,
-      size: 10
+      size: size
     }
   })
 }
@@ -16,4 +16,8 @@ export const getProdeltail = (repoOwner, repoName) => {
       repoName: repoName
     }
   })
+}
+
+export const gethostPro = () => {
+  return request.get('/data/hot/repo')
 }
