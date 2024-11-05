@@ -2,8 +2,8 @@
   <div>
     <div class="showcard">
       <ul>
-        <li v-for="(item,index) in followeingData" :key="index">
-          <img :src="item.avatarUrl" alt="">
+        <li v-for="(item,index) in followeingData" :key="index" @click="$router.push(`/devdetail/${item.login}`)">
+          <img :src="item.avatarUrl || defaultimg" alt="">
           <p style="margin-top: 20px;">
             {{ item.login }}
           </p>
@@ -29,11 +29,13 @@
 
 <script>
 import { getUserinfomation } from '@/api/login'
+import defaultimg from '@/assets/imgs/githubuser.png'
 export default {
   name: 'likeIndex',
   data () {
     return {
-      followeingData: []
+      followeingData: [],
+      defaultimg
     }
   },
   async created () {

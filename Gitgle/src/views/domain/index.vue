@@ -3,7 +3,7 @@
     <IndexHeader></IndexHeader>
     <div class="body">
       <div class="grid-container">
-        <div class="grid-item" v-for="(item,index) in hotDomainList" :key="index">
+        <div class="grid-item" v-for="(item,index) in hotDomainList" :key="index" @click="$router.push(`/search/${item.domain }`)">
           <div class="title">
             <div class="circle" :style="{ backgroundColor: item.color}"></div>
             <span>{{ item.domain }}</span>
@@ -83,6 +83,7 @@ export default {
   .body {
     margin: 20px auto;
     width: 1170px;
+    min-height: 900px;
   }
 
   .grid-container {

@@ -19,11 +19,11 @@
     <div class="nav-right">
       <div class="search">
         <div class="searchBtn">
-          <van-icon name="search" size="30px"/>
+          <van-icon name="search" size="30px"  @click="searchdomain"/>
         </div>
         <div class="searchTxt">
           <form action="">
-            <input type="text">
+            <input type="text" placeholder="输入领域搜索相关" v-model="domaintxt" @keyup.enter="searchdomain">
           </form>
         </div>
       </div>
@@ -46,6 +46,18 @@ export default {
       this.$refs.reg.style.display = 'block'
       this.$refs.login.style.display = 'block'
       this.$refs.person.style.display = 'none'
+    }
+  },
+  data () {
+    return {
+      domaintxt: ''
+    }
+  },
+  methods: {
+    searchdomain () {
+      if (this.domaintxt) {
+        this.$router.push(`/search/${this.domaintxt}`)
+      }
     }
   }
 }
@@ -75,8 +87,8 @@ export default {
   }
 
   .nav ul li {
-    // width: 140px;
-    width: auto;
+    width: 150px;
+    // width: auto;
     padding: 10px;
     list-style: none;
     height: 40px;
@@ -145,7 +157,7 @@ export default {
     height: 50px;
     background-color: #f1f1f2;
     border-radius: 20px;
-    width: 200px;
+    width: 300px;
     overflow: hidden;
     display: flex;
     line-height: 50px;
@@ -171,7 +183,7 @@ export default {
     background-color: #f1f1f2;
     width: 220px;
     border: 0px;
-    font-size: 25px;
+    font-size: 20px;
     color:#2b292a;
   }
 </style>

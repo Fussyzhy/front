@@ -19,11 +19,11 @@
 
       <div class="main_search">
         <form action="">
-          <input type="text" placeholder="搜索开发者&更多">
+          <input type="text" placeholder="输入领域搜索&开发者&更多" v-model="domaintxt" @keyup.enter="searchdomain">
         </form>
         <div class="line">
         </div>
-        <van-icon name="search"  size="40px" class="search_btn"/>
+        <van-icon name="search"  size="40px" class="search_btn" @click="searchdomain"/>
       </div>
 
       <div class="main-tag">
@@ -82,41 +82,27 @@
         <span>为你推荐</span>
       </div>
 
-      <div class="language-title">
-        <p>开发者</p>
-        <button @click="$router.push('/developer')">更多</button>
-      </div>
-
-      <div class="language-body">
-        <div class="showcard">
-          <ul>
-            <li v-for="(item,index) in raDeveloper" :key="index">
-              <img :src="item.avatar" alt="">
-              <p style="margin-top: 20px;">
-              {{ item.login }}
-              </p>
-              <!-- <div>
-                中国
-              </div> -->
-              <span style="margin-top: 20px;">ID:{{ item.id }}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
       <div class="domain-title">
         <p>领域</p>
+        <div>
+          <!-- <div @click="randomDomain" class="change-random">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 64 64"><path fill="currentColor" d="M8.4 29c.3 0 .7-.1 1-.2l11.1-3.9c1.2-.4 1.8-1.7 1.4-2.9s-1.7-1.8-2.9-1.4L12.1 23c3.3-8.6 11.7-14.4 21.3-14.4c10.5 0 19.6 7 22.2 17c.3 1.2 1.5 1.9 2.7 1.6s1.9-1.5 1.6-2.7c-3.1-12-14-20.4-26.6-20.4c-11.2 0-21.1 6.6-25.2 16.5l-2.1-6c-.4-1.2-1.7-1.8-2.9-1.4s-1.8 1.7-1.4 2.9L5.5 27c.6 1.3 1.7 2 2.9 2m53.7 20.7L58 39c-.3-.7-.8-1.3-1.5-1.6s-1.5-.3-2.2 0l-11 4.2c-1.2.4-1.7 1.7-1.3 2.9s1.7 1.7 2.9 1.3l6.9-2.6c-4 7.3-11.8 12.1-20.5 12.1c-9.9 0-18.6-6.2-21.7-15.4c-.4-1.2-1.7-1.8-2.8-1.4c-1.2.4-1.8 1.7-1.4 2.8c3.7 11 14.1 18.4 25.9 18.4c10.3 0 19.6-5.7 24.3-14.5l2.3 6.1c.3.9 1.2 1.4 2.1 1.4c.3 0 .5 0 .8-.2c1.2-.3 1.7-1.6 1.3-2.8"/></svg>
+            换一批
+          </div> -->
         <button @click="$router.push('/domain')">更多</button>
+        </div>
       </div>
 
       <div class="domain-body">
         <ul>
 
-          <li  v-for="(item,index) in raDomain" :key="index">
+          <li  v-for="(item,index) in raDomain" :key="index" @click="$router.push(`/search/${item.domain }`)">
             <div>
-              <img src="@/assets/imgs/githubuser.png" alt="">
-              <p>{{ item.developerTotal }}</p>
-              <div>{{ item.domain }}</div>
+              <span>{{ item.domain }}</span><br>
+              <div style="display: flex;">
+                <img src="@/assets/imgs/githubuser.png" alt="">
+                <p>{{ item.developerTotal }}</p>
+              </div>
 
             </div>
           </li>
@@ -125,8 +111,42 @@
       </div>
 
       <div class="language-title">
+        <p>开发者</p>
+        <div>
+          <div @click="randomDeveloper" class="change-random">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 64 64"><path fill="currentColor" d="M8.4 29c.3 0 .7-.1 1-.2l11.1-3.9c1.2-.4 1.8-1.7 1.4-2.9s-1.7-1.8-2.9-1.4L12.1 23c3.3-8.6 11.7-14.4 21.3-14.4c10.5 0 19.6 7 22.2 17c.3 1.2 1.5 1.9 2.7 1.6s1.9-1.5 1.6-2.7c-3.1-12-14-20.4-26.6-20.4c-11.2 0-21.1 6.6-25.2 16.5l-2.1-6c-.4-1.2-1.7-1.8-2.9-1.4s-1.8 1.7-1.4 2.9L5.5 27c.6 1.3 1.7 2 2.9 2m53.7 20.7L58 39c-.3-.7-.8-1.3-1.5-1.6s-1.5-.3-2.2 0l-11 4.2c-1.2.4-1.7 1.7-1.3 2.9s1.7 1.7 2.9 1.3l6.9-2.6c-4 7.3-11.8 12.1-20.5 12.1c-9.9 0-18.6-6.2-21.7-15.4c-.4-1.2-1.7-1.8-2.8-1.4c-1.2.4-1.8 1.7-1.4 2.8c3.7 11 14.1 18.4 25.9 18.4c10.3 0 19.6-5.7 24.3-14.5l2.3 6.1c.3.9 1.2 1.4 2.1 1.4c.3 0 .5 0 .8-.2c1.2-.3 1.7-1.6 1.3-2.8"/></svg>
+            换一批
+          </div>
+          <button @click="$router.push('/developer')">更多</button>
+        </div>
+      </div>
+
+      <div class="language-body">
+        <div class="showcard">
+          <ul>
+            <li v-for="(item,index) in raDeveloper" :key="index" @click="$router.push(`/devdetail/${item.login}`)">
+              <img :src="item.avatar || defaultimg" alt="">
+              <p style="margin-top: 20px; font-size: 20px;">
+              {{ item.login }}
+              </p>
+              <!-- <div>
+                中国
+              </div> -->
+              <span style="margin-top: 20px;">Nation:{{ item.nation || 'N/A' }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="language-title">
         <p>仓库</p>
-        <button @click="$router.push('/project')">更多</button>
+        <div>
+          <div @click="randomRepo" class="change-random">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 64 64"><path fill="currentColor" d="M8.4 29c.3 0 .7-.1 1-.2l11.1-3.9c1.2-.4 1.8-1.7 1.4-2.9s-1.7-1.8-2.9-1.4L12.1 23c3.3-8.6 11.7-14.4 21.3-14.4c10.5 0 19.6 7 22.2 17c.3 1.2 1.5 1.9 2.7 1.6s1.9-1.5 1.6-2.7c-3.1-12-14-20.4-26.6-20.4c-11.2 0-21.1 6.6-25.2 16.5l-2.1-6c-.4-1.2-1.7-1.8-2.9-1.4s-1.8 1.7-1.4 2.9L5.5 27c.6 1.3 1.7 2 2.9 2m53.7 20.7L58 39c-.3-.7-.8-1.3-1.5-1.6s-1.5-.3-2.2 0l-11 4.2c-1.2.4-1.7 1.7-1.3 2.9s1.7 1.7 2.9 1.3l6.9-2.6c-4 7.3-11.8 12.1-20.5 12.1c-9.9 0-18.6-6.2-21.7-15.4c-.4-1.2-1.7-1.8-2.8-1.4c-1.2.4-1.8 1.7-1.4 2.8c3.7 11 14.1 18.4 25.9 18.4c10.3 0 19.6-5.7 24.3-14.5l2.3 6.1c.3.9 1.2 1.4 2.1 1.4c.3 0 .5 0 .8-.2c1.2-.3 1.7-1.6 1.3-2.8"/></svg>
+            换一批
+          </div>
+          <button @click="$router.push('/project')">更多</button>
+        </div>
       </div>
 
       <div class="repo-body">
@@ -169,7 +189,7 @@
                 拥有者:
               </div>
               <div style="display: flex; align-items: center;">
-                <img :src="item.ownerAvatarUrl" alt="">
+                <img :src="item.ownerAvatarUrl || defaultimg" alt="">
                 {{item.ownerLogin}}
               </div>
 
@@ -190,7 +210,7 @@
         <div class="ranking-child" >
           <div class="ranking-title">
             <div>
-              <p>高分开发者</p>
+              <p>开发者排行榜</p>
               <a @click="$router.push('/developer')">所有开发者 > </a>
             </div>
             <div>
@@ -202,7 +222,7 @@
           </div>
 
           <table>
-            <tr v-for="(item,index) in userlist" :key="index">
+            <tr v-for="(item,index) in userlist" :key="index" @click="$router.push(`/devdetail/${item.login}`)">
               <td class="ranking-num">{{ index+1 }}</td>
               <td class="ranking-pic"><img :src="item.avatar || defaultimg" alt=""></td>
               <td class="ranking-name"><p class="ellipsis-single-line">{{item.login}}</p></td>
@@ -236,7 +256,7 @@
           </table> -->
           <div class="ranking-title">
             <div>
-              <p>高分仓库</p>
+              <p>仓库排行榜</p>
               <a @click="$router.push('/project')" style="padding-left: 30px;">所有仓库 > </a>
             </div>
             <div>
@@ -294,6 +314,7 @@ export default {
       raRepo: [],
       raDeveloper: [],
       repohost: [],
+      domaintxt: '',
       defaultimg
     }
   },
@@ -301,42 +322,54 @@ export default {
 
   },
   methods: {
+    searchdomain () {
+      if (this.domaintxt) {
+        this.$router.push(`/search/${this.domaintxt}`)
+      }
+    },
     async randomDomain () {
       this.raDomain = []
       const res = await getDomain()
-      while (this.raDomain.length < 5) {
-        const randomIndex = Math.floor(Math.random() * res.data.hotDomainList.length)
-        const randomElement = res.data.hotDomainList[randomIndex]
-        if (!this.raDomain.includes(randomElement)) {
-          this.raDomain.push(randomElement)
-        }
-      }
+      this.raDomain = res.data.hotDomainList.slice(0, 5)
+      // while (this.raDomain.length < 5) {
+      //   const randomIndex = Math.floor(Math.random() * res.data.hotDomainList.length)
+      //   const randomElement = res.data.hotDomainList[randomIndex]
+      //   if (!this.raDomain.includes(randomElement)) {
+      //     this.raDomain.push(randomElement)
+      //   }
+      // }
       // console.log(this.raDomain)
     },
     async randomDeveloper () {
-      this.raDeveloper = []
+      // this.raDeveloper = []
+      const ralist = []
       const randomNumbers = []
       while (randomNumbers.length < 5) {
-        const randomNumber = Math.floor(Math.random() * 10) + 1
+        const randomNumber = Math.floor(Math.random() * 100) + 1
         if (!randomNumbers.includes(randomNumber)) {
           randomNumbers.push(randomNumber)
           const res = await getSearch({ page: randomNumber, size: 1 })
-          this.raDeveloper.push(res.data.searchUsers[0])
+          ralist.push(res.data.searchUsers[0])
         }
       }
+      console.log(randomNumbers)
+
+      this.raDeveloper = ralist
       // console.log(this.raDeveloper)
     },
     async randomRepo () {
-      this.raRepo = []
+      // this.raRepo = []
+      const ralist = []
       const randomNumbers = []
       while (randomNumbers.length < 6) {
         const randomNumber = Math.floor(Math.random() * 100) + 1
         if (!randomNumbers.includes(randomNumber)) {
           randomNumbers.push(randomNumber)
           const res = await getProject(randomNumber, 1)
-          this.raRepo.push(res.data.githubReposList[0])
+          ralist.push(res.data.githubReposList[0])
         }
       }
+      this.raRepo = ralist
       // console.log(this.raRepo)
     }
 
@@ -370,6 +403,7 @@ export default {
     margin: 20px auto;
     width: 1170px;
     // background-color: #f1f1f2;
+    min-height: 900px;
   }
 
   .body .title {
@@ -507,7 +541,7 @@ export default {
   }
 
   .language-title button {
-    margin-left:auto;
+
     margin-bottom: 20px;
     height: 40px;
     width: 100px;
@@ -518,6 +552,11 @@ export default {
     color: #132037;
     transition: 0.5s ease;
     font-weight: bold;
+  }
+
+  .language-title div {
+    margin-left:auto;
+    display: flex;
   }
 
   .language-title button:hover{
@@ -571,6 +610,11 @@ export default {
     padding: 10px;
   }
 
+  .domain-title div {
+    display: flex;
+    margin-left:auto;
+  }
+
   .domain-title p {
     font-size: 25px;
     font-weight: bold;
@@ -578,13 +622,12 @@ export default {
     line-height: 40px;
   }
   .domain-body  img{
-    margin-top: 20px;
-    width: 80px;
-    // height: 180px;
+    // margin-top: 20px;
+    width: 20px;
+    height: 20px;
   }
 
   .domain-title button {
-    margin-left:auto;
     margin-bottom: 20px;
     height: 40px;
     width: 100px;
@@ -608,52 +651,56 @@ export default {
 
   .domain-body ul li {
     width: 170px;
-    height: 250px;
-    margin: 10px auto  0;
+    height: 180px;
+    margin: 0px auto  0;
     transition: 0.5s ease;
   }
 
   .domain-body ul li div {
-    width: 150px;
-    height: 200px;
+    width: 200px;
+    // height: 200px;
     background-color: #fff;
-    margin: auto;
+    // margin: auto;
     text-align: center;
     border-radius: 20px;
-    margin-bottom: 10px;
-    overflow: hidden;
+    // margin-bottom: 10px;
+    // overflow: hidden;
     transition: 0.5s ease;
     box-shadow: 0px 10px 10px rgba(0, 0, 0,0.1);
+  }
+
+  .domain-body ul li div span {
+    font-size: 30px;
+    display: block;
+    padding: 20px 0px 0px 0px;
+    color: #677081;
+  }
+
+  .domain-body ul li div div {
+    justify-content: center;
+    align-items: center;
+    padding: 0px 0px 20px;
+  }
+
+  .domain-body ul li div div img{
+    margin: 0px 10px;
+  }
+
+  .domain-body ul li div div p {
+    font-weight: bolder;
   }
 
   .domain-body ul li div:hover {
     box-shadow: 0px 10px 10px rgba(0, 0, 0,0.2);
   }
 
-  .domain-body ul li div div {
-    font-size: 22px;
-    margin: 20px 0px;
-    color: #677081;
-  }
-
   .domain-body ul li div:hover  div {
     color: #3460d8;
   }
 
-  .domain-body ul li div p {
-    font-size: 25px;
-    margin: 10px 0px 0px 0px;
-  }
-
-  // .domain-body ul li div img{
-  //   width: 100px;
-  //   height: 180px;
-  // }
-
   .ranking {
     margin: 100px 0px;
     width: 100%;
-    // height: 1000px;
     background-color: #fff;
     display: flex;
     border-radius: 20px;
@@ -661,10 +708,18 @@ export default {
   }
 
   .ranking .ranking-child {
-    // background-color: #ff0000;
-
     width: 40%;
     margin: 60px auto  0;
+  }
+
+  .ranking-child table tr {
+    cursor: pointer;
+  }
+
+  .ranking-child table tr:hover .ranking-name {
+    color: #5098d5;
+    transition: 0.5s ease;
+
   }
 
   .ranking-mid {
@@ -678,7 +733,7 @@ export default {
   }
 
   .ranking-title  div p {
-    margin: 0px 170px 0px 10px;
+    margin: 0px 155px 0px 10px;
     color: #000000;
     font-size: 25px;
     font-weight: bolder;
@@ -697,7 +752,6 @@ export default {
   }
 
   .ranking-title  div span {
-    // margin: 20px 80px 20px 50px;
     margin: 20px 0px;
     font-size: 20px;
     color: #7a7b8c;
@@ -742,7 +796,6 @@ export default {
   .ranking-child td img {
     height: 45px;
     border-radius: 50px;
-    // margin: 0px 30px 0px 0px;
     transition: 0.5s ease;
   }
 
@@ -754,13 +807,11 @@ export default {
     width: auto;
     background-color: #7a7a7a;
     height: 1px;
-    // text-align: center;
     position: relative;
     margin: 30px 0px;
   }
   .tuijian span {
     background-color: #fafafa;
-    // margin: auto;
     position: absolute;
     width: 180px;
     top: -23px;
@@ -807,11 +858,9 @@ export default {
     overflow:hidden ;
     white-space: nowrap;
     align-items: center;
-    // background-color: #000;
   }
 
   .card .name span {
-    // margin: 20px 20px;
     padding-top:18px ;
     font-size: 15px;
     float: right;
@@ -821,7 +870,6 @@ export default {
   .card ul {
     display: flex;
     justify-content: space-between;
-    // margin: 20px 0px;
     color: #9198a1;
     padding: 0px 20px;
   }
@@ -834,7 +882,6 @@ export default {
     padding: 40px;
     height: 300px;
     line-height: 30px;
-    // background-color: #ff0000;
   }
 
   .card .foot {
@@ -900,6 +947,25 @@ export default {
   }
   .showcard li:hover p{
     color: #5098d5;
+  }
+
+  .change-random {
+    // background-color: #ff0000;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    color: #132037;
+    margin: 0px 20px;
+    cursor: pointer;
+  }
+
+  .change-random svg {
+    margin: 0px 7px;
+    transition: 0.5s ease;
+  }
+
+  .change-random:hover svg{
+    transform: rotate(180deg);
   }
 
 </style>

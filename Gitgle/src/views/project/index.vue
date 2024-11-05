@@ -43,7 +43,7 @@
               拥有者:
             </div>
             <div style="display: flex; align-items: center;">
-              <img :src="item.ownerAvatarUrl" alt="">
+              <img :src="item.ownerAvatarUrl || defaultimg" alt="">
                {{item.ownerLogin}}
             </div>
 
@@ -81,6 +81,7 @@
 import { getProject } from '@/api/project'
 import IndexFooter from '@/components/IndexFooter.vue'
 import IndexHeader from '@/components/IndexHeader.vue'
+import defaultimg from '@/assets/imgs/githubuser.png'
 export default {
   name: 'projectIndex',
   components: {
@@ -91,7 +92,8 @@ export default {
     return {
       prodata: [],
       page: 1,
-      totalPage: 0
+      totalPage: 0,
+      defaultimg
     }
   },
   methods: {
@@ -127,6 +129,7 @@ export default {
   .body {
     width: 1170px;
     margin: 60px auto;
+    min-height: 900px;
   }
 
   .card-grid {

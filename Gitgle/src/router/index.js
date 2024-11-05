@@ -13,6 +13,7 @@ import Project from '@/views/project/index.vue'
 import Devdetail from '@/views/developer/devdetail.vue'
 import Prodetail from '@/views/project/prodetail.vue'
 import Domain from '@/views/domain/index.vue'
+import Search from '@/views/search/index.vue'
 
 import store from '@/store'
 
@@ -29,6 +30,7 @@ const router = new VueRouter({
     { path: '/project', component: Project },
     { path: '/prodetail/:repoOwner/:repoName', component: Prodetail },
     { path: '/domain', component: Domain },
+    { path: '/search/:domaintxt', component: Search },
     {
       path: '/',
       redirect: '/home'
@@ -44,7 +46,10 @@ const router = new VueRouter({
         { path: '/editinfo', component: Editinfo }
       ]
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })
 
 const authUrls = ['/personal', '/perhome', '/like', '/fans', '/devdetail/:githubId']

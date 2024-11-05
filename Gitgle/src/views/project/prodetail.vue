@@ -4,7 +4,7 @@
     <div class="body">
       <div class="box">
         <div class="title">
-          <img :src="detaildata.ownerAvatarUrl" alt="">
+          <img :src="detaildata.ownerAvatarUrl || defaultimg" alt="">
           <div style="margin-right: auto; font-weight: bolder;">
             {{ detaildata.name }}
           </div>
@@ -40,7 +40,7 @@
         </ul>
         <div class="main">
           <div style="display: flex; align-items: center; padding: 20px; font-size: 20px;">
-            <img :src="detaildata.ownerAvatarUrl" alt="">
+            <img :src="detaildata.ownerAvatarUrl || defaultimg" alt="">
             <p @click="$router.push(`/devdetail/${detaildata.ownerLogin}`)" style="cursor: pointer;">{{ detaildata.ownerLogin }}</p>
             <span style=" margin-left: auto; color: #888;">
               <van-icon name="clock-o" />
@@ -72,13 +72,15 @@
 
 <script>
 import { getProdeltail } from '@/api/project'
+import defaultimg from '@/assets/imgs/githubuser.png'
 import IndexFooter from '@/components/IndexFooter.vue'
 import IndexHeader from '@/components/IndexHeader.vue'
 export default {
   name: 'prodetailIndex',
   data () {
     return {
-      detaildata: {}
+      detaildata: {},
+      defaultimg
     }
   },
   computed: {

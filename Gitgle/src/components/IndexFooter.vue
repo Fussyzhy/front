@@ -9,12 +9,10 @@
     <div class="footer-child mid">
       <span>指南</span>
       <ul>
-        <li>首页</li>
-        <li>领域</li>
+        <li @click="$router.push('/home')">首页</li>
+        <li @click="$router.push('/domain')">热门领域</li>
         <li @click="$router.push('/developer')">开发者</li>
-        <li>推荐</li>
-        <li>项目</li>
-        <li>社区</li>
+        <li @click="$router.push('/project')">仓库</li>
       </ul>
     </div>
 

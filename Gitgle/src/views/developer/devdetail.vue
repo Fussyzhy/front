@@ -5,6 +5,7 @@
     <div class="body">
       <div class="userinfo">
         <img :src="userdata.avatar_url" alt="">
+
         <div class="userinfo-right">
           <span>
             {{ userdata.login }}
@@ -27,6 +28,15 @@
 
         </div>
 
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-item" v-for="(item,index) in userdata.domains" :key="index" @click="$router.push(`/search/${ item }`)">
+          <div class="title">
+            <div class="circle" :style="{ backgroundColor: item.color}"></div>
+            <span>{{ item }}</span>
+          </div>
+        </div>
       </div>
 
       <div class="card-grid">
@@ -127,6 +137,7 @@ export default {
     background-color: #ffffff;
     border-radius: 20px;
     align-items: center;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
   }
 
   .body  .userinfo img {
@@ -273,4 +284,39 @@ export default {
     color: #9198a1;
   }
 
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    padding: 10px;
+  }
+
+  .grid-item {
+    background-color: #fff;
+
+    // padding: 10px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+
+  .grid-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .grid-item span {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+
+  .grid-item .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+  }
+
+  .grid-container .circle {
+    background-color: #3460d8;
+  }
 </style>

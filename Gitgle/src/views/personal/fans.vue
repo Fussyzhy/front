@@ -2,8 +2,8 @@
   <div>
     <div class="showcard">
       <ul>
-        <li v-for="(item,index) in fansData" :key="index">
-          <img :src="item.avatar_url" alt="">
+        <li v-for="(item,index) in fansData" :key="index" @click="$router.push(`/devdetail/${item.login}`)">
+          <img :src="item.avatar_url || defaultimg" alt="">
           <p style="margin-top: 20px;">
           {{ item.login }}
           </p>
@@ -28,12 +28,14 @@
 </template>
 
 <script>
+import defaultimg from '@/assets/imgs/githubuser.png'
 import { getUserinfomation } from '@/api/login'
 export default {
   name: 'fansIndex',
   data () {
     return {
-      fansData: []
+      fansData: [],
+      defaultimg
     }
   },
   async created () {
