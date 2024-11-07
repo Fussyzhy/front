@@ -4,7 +4,7 @@
 
     <div class="body">
       <div class="userinfo">
-        <img :src="userdata.avatar_url" alt="">
+        <img :src="userdata.avatar_url || defaultimg" alt="">
 
         <div class="userinfo-right">
           <span>
@@ -82,6 +82,7 @@
 </template>
 
 <script>
+import defaultimg from '@/assets/imgs/githubuser.png'
 import { getUserdetail } from '@/api/user'
 import IndexFooter from '@/components/IndexFooter.vue'
 import IndexHeader from '@/components/IndexHeader.vue'
@@ -94,7 +95,8 @@ export default {
   data () {
     return {
       userdata: [],
-      prodata: []
+      prodata: [],
+      defaultimg
     }
   },
   computed: {
@@ -138,6 +140,7 @@ export default {
     border-radius: 20px;
     align-items: center;
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
   }
 
   .body  .userinfo img {
@@ -147,6 +150,7 @@ export default {
 
   .body .userinfo .userinfo-right {
     margin: 10px 80px;
+
   }
 
   .body .userinfo .userinfo-right span {
@@ -168,7 +172,7 @@ export default {
     align-items: center;
     justify-content: center;
   }
-
+  over
   .userinfo-right button svg {
     margin-right: 10px;
   }
@@ -183,6 +187,7 @@ export default {
     grid-template-columns: repeat(2, 1fr);
     // background-color: #ff4343;
     width: 800px;
+    white-space: nowrap;
   }
 
   .userinfo-follow div {
@@ -195,7 +200,7 @@ export default {
   .userinfo-follow div p {
     margin: 0px 0px 0px 60px;
     color: #1c293f;
-  }
+    }
 
   .card-grid {
     display: grid;

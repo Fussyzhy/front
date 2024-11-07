@@ -8,9 +8,9 @@
 
       <div class="dropdown">
         <ul>
-
+          <!-- -->
           <li class="category">
-            {{ search.nation || '国家/地区' }}<van-icon name="arrow-down" />
+            <p style=" white-space:nowrap; overflow: hidden;">{{ search.nation || '国家/地区' }}<van-icon name="arrow-down" /></p>
             <div class="dropdown-child scroll-box">
               <a @click="search.nation = ''">
                 全部
@@ -66,7 +66,7 @@
                 <p v-if="item.domains.length === 0">N/A</p>
               </div>
             </div>
-            <span>TR:{{ item.talentRank }}</span>
+            <span>TR:{{ item.talentRank || 'N/A' }}</span>
           </li>
         </ul>
       </div>
@@ -170,6 +170,26 @@ export default {
           svg: item.flags.svg,
           name: item.name.nativeName.zho.common
         })
+      }
+    }
+
+    const targetId = '美国'
+    const targetUser = this.nation.find(item => item.name === targetId)
+    if (targetUser) {
+      const index = this.nation.indexOf(targetUser)
+      if (index > -1) {
+        const removedUser = this.nation.splice(index, 1)[0]
+        this.nation.unshift(removedUser)
+      }
+    }
+
+    const china = '中国'
+    const chinasvg = this.nation.find(item => item.name === china)
+    if (chinasvg) {
+      const index = this.nation.indexOf(chinasvg)
+      if (index > -1) {
+        const removedUser = this.nation.splice(index, 1)[0]
+        this.nation.unshift(removedUser)
       }
     }
 
@@ -521,9 +541,9 @@ export default {
     background-color: #f1f1f1;
   }
 
-  .dropdown .category-search:hover {
-    border: 2px solid #dadbe8;
-  }
+  // .dropdown .category-search:hover {
+  //   border: 2px solid #dadbe8;
+  // }
 
   .category-search .search-icon {
     margin-left:10px;

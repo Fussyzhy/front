@@ -14,6 +14,7 @@ import Devdetail from '@/views/developer/devdetail.vue'
 import Prodetail from '@/views/project/prodetail.vue'
 import Domain from '@/views/domain/index.vue'
 import Search from '@/views/search/index.vue'
+import Github from '@/views/login/githublogin.vue'
 
 import store from '@/store'
 
@@ -31,6 +32,7 @@ const router = new VueRouter({
     { path: '/prodetail/:repoOwner/:repoName', component: Prodetail },
     { path: '/domain', component: Domain },
     { path: '/search/:domaintxt', component: Search },
+    { path: '/githublogin', component: Github },
     {
       path: '/',
       redirect: '/home'
@@ -52,7 +54,7 @@ const router = new VueRouter({
   }
 })
 
-const authUrls = ['/personal', '/perhome', '/like', '/fans', '/devdetail/:githubId']
+const authUrls = ['/personal', '/perhome', '/like', '/fans', '/devdetail/:githubId', '/githublogin']
 
 router.beforeEach((to, from, next) => {
   if (!authUrls.includes(to.path)) {
@@ -66,4 +68,5 @@ router.beforeEach((to, from, next) => {
     next('/login')
   }
 })
+
 export default router

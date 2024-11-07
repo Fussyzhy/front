@@ -6,11 +6,11 @@
     <div class="body">
 
       <div class="title">
-        Gitgle 是GitHub开发者社区平台。
+        Gitgle 是GitHub开发者社区平台
       </div>
 
       <div class="under-title">
-        <div>开发者指南、深入评论、图表数据分析。</div>
+        <div>开发者指南、深入评论、图表数据分析</div>
         <div class="tag">
           <van-icon name="fire-o" style="margin: 16px 3px 16px 0px;"/>
           全部由开发者数据驱动
@@ -19,7 +19,7 @@
 
       <div class="main_search">
         <form action="">
-          <input type="text" placeholder="输入领域搜索&开发者&更多" v-model="domaintxt" @keyup.enter="searchdomain">
+          <input type="text" placeholder="输入领域搜索&更多开发者" v-model="domaintxt" @keyup.enter="searchdomain">
         </form>
         <div class="line">
         </div>
@@ -29,7 +29,7 @@
       <div class="main-tag">
         <ul>
 
-          <li @click="$router.push('/developer')">
+          <li>
             <van-icon name="contact-o"  class="li-tag" size="40px"/>
             <div class="li-text">
               <sapn>开发者</sapn>
@@ -256,7 +256,7 @@
           </div>
 
           <table>
-            <tr v-for="(item,index) in repohost" :key="index">
+            <tr v-for="(item,index) in repohost" :key="index" @click="$router.push(`/prodetail/${item.ownerLogin}/${item.repoName}/`)">
               <td class="ranking-num">{{ index+1 }}</td>
               <td class="ranking-pic"><img :src="item.ownerAvatarUrl || defaultimg" alt=""></td>
               <td class="ranking-name"><p>{{ item.repoName }}</p></td>

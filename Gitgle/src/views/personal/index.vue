@@ -3,7 +3,7 @@
     <IndexHeader></IndexHeader>
     <div class="personal-card">
       <div class="personal-mid">
-        <img :src="personData.githubUserInfo.githubUser.avatar_url" alt="">
+        <img :src="personData.githubUserInfo.githubUser.avatar_url || defaultimg" alt="">
         <div class="information">
           <p class="name">{{ personData.login }}</p>
           <div>
@@ -12,8 +12,8 @@
           </div>
           <div class="information-footer">
             <span>邮箱：{{ personData.email }}</span>
-            <span>talentRank：{{ personData.talentRank }}</span>
-            <span>位置：{{ personData.githubUserInfo.githubUser.location }}</span>
+            <span>talentRank：{{ personData.githubUserInfo.githubUser.talentRank }}</span>
+            <span>位置：{{ personData.githubUserInfo.githubUser.nation }}</span>
           </div>
         </div>
       </div>
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import defaultimg from '@/assets/imgs/githubuser.png'
 import { getUserinfomation } from '@/api/login'
 import Indexfooter from '@/components/IndexFooter.vue'
 import IndexHeader from '@/components/IndexHeader.vue'
@@ -52,7 +53,14 @@ export default {
   data () {
     return {
       selActive: '/perhome',
-      personData: {}
+      personData: {
+        githubUserInfo: {
+          githubUser: {
+
+          }
+        }
+      },
+      defaultimg
     }
   },
   methods: {
@@ -66,6 +74,9 @@ export default {
     const res = await getUserinfomation()
     console.log(res)
     this.personData = res.data
+    if (!this.personData.login) {
+      this.$router.push('/githublogin')
+    }
   }
 }
 </script>
