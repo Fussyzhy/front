@@ -10,7 +10,7 @@
           <!-- <div>
             中国
           </div> -->
-          <span style="margin-top: 20px;">ID:{{ item.id }}</span>
+          <span style="margin-top: 20px;">{{ item.location || 'N/A'}}</span>
         </li>
       </ul>
     </div>
@@ -42,7 +42,7 @@ export default {
     this.selActive = this.$route.fullPath
     const res = await getUserinfomation()
     console.log(res)
-    this.fansData = res.data.githubUserInfo.githubFollowers.githubFollowersList
+    this.fansData = res.data.githubUserInfo.githubFollowers
   }
 }
 </script>

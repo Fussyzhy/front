@@ -74,6 +74,7 @@ export default {
   .body {
     margin: 20px auto;
     width: 1170px;
+    min-height: 900px;
     // height: 1000px;
     // background-color: #f1f1f2;
   }

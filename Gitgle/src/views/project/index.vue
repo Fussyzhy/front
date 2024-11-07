@@ -56,7 +56,7 @@
         </div>
       </div>
 
-      <div class="page">
+      <div class="page" v-if="prodata.length !== 0">
         <ul>
           <li class="pagebtn" @click="pagechange(page-1)" style="background-color: #edeff2; color: #132037;" v-if="page > 1">&lt;</li>
           <li class="pagebtn" @click="pagechange(1)" style="background-color: #edeff2; color: #132037;" v-if="page > 2">1</li>
@@ -103,6 +103,7 @@ export default {
       this.page = res.data.page
       this.prodata = res.data.githubReposList
       this.totalPage = res.data.totalPage
+      window.scrollTo(0, 0)
     }
   },
   async created () {

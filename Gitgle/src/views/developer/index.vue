@@ -22,8 +22,9 @@
             </div>
           </li>
 
-          <li class="category">
-            <input type="text" placeholder="输入领域" v-model="searchdomain" @blur="search.domain = searchdomain" @keyup.enter="search.domain = searchdomain">
+          <li class="category-search">
+            <input type="text" placeholder="通过领域筛选" v-model="searchdomain" @keyup.enter="search.domain = searchdomain">
+            <van-icon name="search" class="search-icon" @click="search.domain = searchdomain"/>
             <!-- {{ search.domain || '热门领域' }}<van-icon name="arrow-down" />
             <div class="dropdown-child scroll-box">
               <a @click="search.domain = ''">全部</a>
@@ -32,7 +33,7 @@
           </li>
 
           <li class="search">
-            <input type="text" name="" id="" placeholder="搜索开发者" v-model="searchtext" @keyup.enter="search.login = searchtext">
+            <input type="text" name="" id="" placeholder="Github用户名搜索开发者" v-model="searchtext" @keyup.enter="search.login = searchtext">
             <van-icon name="search" class="search-icon" @click="search.login = searchtext"/>
           </li>
 
@@ -61,7 +62,7 @@
             </div>
             <div class="showcard-realms">
               <div class="domain-tag">
-                <div v-for="(item,index) in item.domains.slice(0,6)" :key="index">{{ item }}</div>
+                <div v-for="(item,index) in item.domains.slice(0,6)" :key="index" :title="item">{{ item }}</div>
                 <p v-if="item.domains.length === 0">N/A</p>
               </div>
             </div>
@@ -179,7 +180,13 @@ export default {
   },
   methods: {
     async pagechange (page) {
-      const res = await getSearch({ page: page, size: 20 })
+      const res = await getSearch({
+        page: page,
+        size: 20,
+        domain: this.search.domain,
+        nation: this.search.nation,
+        login: this.search.login
+      })
       console.log(res)
       this.page = res.data.page
       this.userlist = res.data.searchUsers
@@ -310,7 +317,7 @@ export default {
     justify-content: center; /* 水平居中 */
     align-items: center; /* 垂直居中 */
     color: #132037;
-    font-size: 20px;
+    font-size: 18px;
     // transition: 0.5s ease;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -487,5 +494,49 @@ export default {
   .login_result {
     margin: 80px 20px;
     font-size: 30px;
+  }
+
+  .dropdown .category-search {
+    display: flex;
+    background-color: #f1f1f1;
+    height: 45px;
+    width: 240px;
+    margin: 20px 10px 0px 80px;
+    border-radius: 50px;
+    // justify-content: center; /* 水平居中 */
+    padding-left: 20px;
+    align-items: center; /* 垂直居中 */
+    color: #132037;
+    font-size: 20px;
+    // transition: 0.5s ease;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .category-search input {
+    width: 160px;
+    border: 0px;
+    // text-align: center;
+    background-color: #f1f1f1;
+  }
+
+  .dropdown .category-search:hover {
+    border: 2px solid #dadbe8;
+  }
+
+  .category-search .search-icon {
+    margin-left:10px;
+    padding-left: 10px;
+    transition: 0.5s ease;
+    width:60px;
+    height: 60px;
+    line-height: 65px;
+
+  }
+
+  .category-search .search-icon:hover {
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+    background-color: #e5e5e6;
   }
 </style>

@@ -9,9 +9,12 @@
 
     <div class="changepass">
       <p>修改密码</p>
-      <input placeholder="输入旧密码" type="text" v-model="oldpass"><br>
-      <input placeholder="输入新密码" type="text" v-model="newpass"><br>
-      <input placeholder="确认新密码" type="text" v-model="newrepass"><br>
+      <input placeholder="输入旧密码" type="text" v-model="oldpass" @blur="handleBlur('oldpass')"><br>
+      <span class="erro">密码应包含大写字母，小写字母，和数字</span><br>
+      <input placeholder="输入新密码" type="text" v-model="newpass" @blur="handleBlur('newpass')"><br>
+      <span class="erro">密码应包含大写字母，小写字母，和数字</span><br>
+      <input placeholder="确认新密码" type="text" v-model="newrepass" @blur="handleBlur('repass')"><br>
+      <span class="erro">两次密码输入不一致</span><br>
       <button @click="handlepass">确认修改</button>
     </div>
 
@@ -36,10 +39,35 @@ export default {
       oldpass: '',
       newpass: '',
       newrepass: '',
+      reg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/,
       personData: []
     }
   },
   methods: {
+    handleBlur (key) {
+      const erro = document.querySelectorAll('.erro')
+      if (key === 'oldpass') {
+        if (!this.reg.test(this.oldpass) && this.oldpass !== '') {
+          erro[0].style.opacity = 1
+        } else {
+          erro[0].style.opacity = 0
+        }
+      }
+      if (key === 'newpass') {
+        if (!this.reg.test(this.newpass) && this.newpass !== '') {
+          erro[1].style.opacity = 1
+        } else {
+          erro[1].style.opacity = 0
+        }
+      }
+      if (key === 'repass') {
+        if (this.newrepass !== this.newpass && this.newrepass !== '' && this.newpass !== '') {
+          erro[2].style.opacity = 1
+        } else {
+          erro[2].style.opacity = 0
+        }
+      }
+    },
     async handlelogin () {
       if (this.changegit !== '') {
         const res = await changegitlogin(this.changegit, this.personData.email, this.personData.email)
@@ -51,7 +79,7 @@ export default {
       }
     },
     async handlepass () {
-      if (this.newpass === this.newrepass) {
+      if (this.newpass === this.newrepass && this.reg.test(this.newpass) && this.reg.test(this.oldpass)) {
         if (this.oldpass !== '' && this.newpass !== '' && this.newrepass !== '') {
           const res = await changePassword(this.oldpass, this.newpass)
           console.log(res)
@@ -134,8 +162,12 @@ export default {
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
   }
 
+  .changepass span{
+    color: red;
+  }
+
   .changepass p {
-    margin: 50px;
+    margin: 50px 0px 0px;
     font-size: 40px;
     color: #7a7b8c;
   }
@@ -143,12 +175,13 @@ export default {
   .changepass input {
     height: 40px;
     width: 300px;
-    margin: 0px 0px 50px;
+    margin: 40px 0px 0px;
     padding: 0px 20px;
     border-radius: 20px;
   }
 
   .changepass button {
+    margin: 40px 0px 0px;
     height: 40px;
     width: 200px;
     border-radius: 20px;
@@ -186,6 +219,10 @@ export default {
 
   .exit button:hover {
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .erro {
+    opacity: 0;
   }
 
 </style>

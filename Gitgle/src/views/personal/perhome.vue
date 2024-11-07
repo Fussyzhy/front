@@ -1,5 +1,16 @@
 <template>
   <div>
+    <div class="grid-container">
+      <div class="grid-item" v-for="(item,index) in domains" :key="index" @click="$router.push(`/search/${item}`)">
+        <div class="title">
+          <div class="circle" :style="{ backgroundColor: item.color}"></div>
+          <span>{{ item }}</span>
+        </div>
+        <!-- <div class="desc">
+          {{ item.description }}
+        </div> -->
+      </div>
+    </div>
     <div class="card-grid">
       <div v-for="(item,index) in prodata" :key="index" class="card" @click="$router.push(`/prodetail/${login}/${item.name}`)">
         <div class="name">
@@ -46,12 +57,14 @@ export default {
   data () {
     return {
       prodata: [],
-      login: ''
+      login: '',
+      domains: []
     }
   },
   async created () {
     const ress = await getUserinfomation()
     this.login = ress.data.login
+    this.domains = ress.data.githubUserInfo.githubUser.domains
     const res = await getUserdetail(this.login)
     this.prodata = res.data.githubReposList
   }
@@ -154,5 +167,47 @@ export default {
     font-size: 15px;
     float: right;
     color: #9198a1;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .grid-item {
+    background-color: #fff;
+    height: 40px;
+    width: 210px;
+    padding: 7px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+
+  .grid-item:hover {
+    transform: translateY(-5px);
+  }
+
+  // /* 不同高度的项目来实现错开效果 */
+  // .grid-item:nth-child(odd) {
+  //   grid-row: span 20;
+  // }
+
+  // .grid-item:nth-child(even) {
+  //   grid-row: span 18;
+  //   // margin: 20px;
+  // }
+
+  .grid-item span {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+
+  .grid-item .title {
+    display: flex;
+    align-items: center;
+    // margin: 20px;
   }
 </style>
